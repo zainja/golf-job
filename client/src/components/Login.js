@@ -30,6 +30,7 @@ const Login = () => {
                            value={email}
                            onChange={handleChange}
                            aria-describedby="emailHelp"
+                           required
                            placeholder="Enter email"/>
                 </div>
 
@@ -41,6 +42,7 @@ const Login = () => {
                         onChange={handleChange}
                         className="form-control"
                         id="password"
+                        required
                         placeholder="Password"
                     />
                 </div>
