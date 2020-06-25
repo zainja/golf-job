@@ -6,3 +6,4 @@ server/node_modules
 test.http
 node_modules/
 package-lock.json
+client/src/config.js
