@@ -2,7 +2,7 @@ const connection = require('../connection')
 
 module.exports.login = (email) => {
     return new Promise((resolve, reject) => {
-        connection.query("SELECT email, password FROM users WHERE email=?",
+        connection.query("SELECT email, password, email_verified FROM users WHERE email=?",
             [email],(err, result) => {
             if (err){
                 reject(err)

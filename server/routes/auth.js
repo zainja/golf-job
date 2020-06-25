@@ -7,7 +7,9 @@ const tokens = require('../authHelpers/tokenAuth')
 const {hashPassword} = require("../authHelpers/passwordManagement");
 const {comparePasswords} = require("../authHelpers/passwordManagement");
 const tokenAuth = require('../authHelpers/tokenAuth')
-
+const sendEmail = require('../email/sendEmail')
+const emailTemplate = require('../email/emailTemplate')
+const emailMsgs = require('../email/emailMsgs')
 router.post('/register', async (req, res) => {
     let {email, firstName, lastName, password, phoneNumber} = req.body
     try{
@@ -16,13 +18,15 @@ router.post('/register', async (req, res) => {
         const emailObj = {email: email}
         const accessToken = tokens.generateAccessToken(emailObj)
         const refreshToken = tokens.generateRefreshToken(emailObj)
-        res.json({
+        const hashEmail = await hashPassword(email, 10)
+        await sendEmail(email, emailTemplate.confirm(hashEmail))
+        await res.json({
             accessToken: accessToken,
-            refreshToken: refreshToken
+            refreshToken: refreshToken,
+            msgs: emailMsgs.confirm
         })
     }catch (e) {
         res.status(401)
-        res.send({"error": e})
     }
 })
 
@@ -35,7 +39,15 @@ router.post('/login', async (req, res) => {
             res.status(404)
             res.send({error: "Incorrect email or password"})
         }
-        if ( await comparePasswords(password, result[0].password)){
+        else if (result[0].email_verified === false || result[0].email_verified === 0){
+            res.status(403)
+            const emailHash = await hashPassword(email, 10)
+            await sendEmail(email, emailTemplate.confirm(emailHash))
+            res.json({
+                msgs: emailMsgs.resend
+            })
+        }
+        else if ( await comparePasswords(password, result[0].password)){
             emailObj = {
                 email: email
             }
@@ -50,7 +62,6 @@ router.post('/login', async (req, res) => {
             res.send({error: "Incorrect email or password"})
         }
     }catch (e) {
-        console.log("Dsdsdsds")
         res.status(500)
         res.send({"error": e})
     }
