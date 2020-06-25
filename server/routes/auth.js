@@ -54,13 +54,27 @@ router.post('/login', async (req, res) => {
     }
 })
 
-router.post('/validate', tokenAuth.authToken , async (req, res) => {
+router.get('/validate', tokenAuth.authToken , async (req, res) => {
     const {email} = req.email
     try {
         await register.validateEmail(email)
+        res.status(200)
+        res.send({success: "Verified"})
     }catch (e) {
         res.status(401)
         res.send({error: "verification failed"})
+    }
+})
+
+router.post('/resetPassword', tokenAuth.authToken, async (req, res) => {
+    const {email} = req.email
+    const {password} = req.body
+    try {
+        const newPassword = await hashPassword(password,10)
+        await login.resetPassword(email, password)
+        res.send({"success": "Password is set"})
+    }catch (e) {
+        res.send(e)
     }
 })
 module.exports = router
