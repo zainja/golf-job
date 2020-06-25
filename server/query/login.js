@@ -1,14 +1,15 @@
 const connection = require('../connection')
 
-module.exports.login = (email, password) => {
+module.exports.login = (email) => {
     return new Promise((resolve, reject) => {
-        connection.query("SELECT email, password FROM users WHERE email = ? AND password = ?",
-            [email, password],(err, result) => {
-            if (err) reject(err)
-            if (result.length === 0){
-                reject({message: "incorrect email or password"})
+        connection.query("SELECT email, password FROM users WHERE email=?",
+            [email],(err, result) => {
+            if (err){
+                reject(err)
             }
-            resolve(result)
+            else {
+                resolve(result)
+            }
         })
     })
 }

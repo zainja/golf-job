@@ -29,15 +29,24 @@ router.post('/register', async (req, res) => {
 router.post('/login', async (req, res) => {
     let {email, password} = req.body
     try {
-        const result = await login.login(email, password)
+        const result = await login.login(email)
+        if (result.length === 0){
+            res.status(404)
+            res.send({error: "Incorrect email or password"})
+        }
         if ( await comparePasswords(password, result[0].password)){
-            res.status(200)
-        const accessToken = tokens.generateAccessToken(emailObj)
-        const refreshToken = tokens.generateRefreshToken(emailObj)
-        res.json({
-            accessToken: accessToken,
-            refreshToken: refreshToken
-        })
+            emailObj = {
+                email: email
+            }
+            const accessToken = tokens.generateAccessToken(emailObj)
+            const refreshToken = tokens.generateRefreshToken(emailObj)
+            await res.json({
+                accessToken: accessToken,
+                refreshToken: refreshToken
+            })
+        }else {
+            res.send(400)
+            res.status({error: "Incorrect email or password"})
         }
     }catch (e) {
         res.status(400)
