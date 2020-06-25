@@ -6,6 +6,7 @@ const login = require('../query/login')
 const tokens = require('../authHelpers/tokenAuth')
 const {hashPassword} = require("../authHelpers/passwordManagement");
 const {comparePasswords} = require("../authHelpers/passwordManagement");
+const tokenAuth = require('../authHelpers/tokenAuth')
 
 router.post('/register', async (req, res) => {
     let {email, firstName, lastName, password, phoneNumber} = req.body
@@ -41,6 +42,16 @@ router.post('/login', async (req, res) => {
     }catch (e) {
         res.status(400)
         res.send({"error": e})
+    }
+})
+
+router.post('/validate', tokenAuth.authToken , async (req, res) => {
+    const {email} = req.email
+    try {
+        await register.validateEmail(email)
+    }catch (e) {
+        res.status(401)
+        res.send({error: "verification failed"})
     }
 })
 module.exports = router
