@@ -28,6 +28,7 @@ router.post('/register', async (req, res) => {
 
 router.post('/login', async (req, res) => {
     let {email, password} = req.body
+    console.log(email)
     try {
         const result = await login.login(email)
         if (result.length === 0){
@@ -45,11 +46,12 @@ router.post('/login', async (req, res) => {
                 refreshToken: refreshToken
             })
         }else {
-            res.send(400)
-            res.status({error: "Incorrect email or password"})
+            res.status(401)
+            res.send({error: "Incorrect email or password"})
         }
     }catch (e) {
-        res.status(400)
+        console.log("Dsdsdsds")
+        res.status(500)
         res.send({"error": e})
     }
 })
