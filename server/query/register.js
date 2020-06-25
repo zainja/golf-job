@@ -6,13 +6,12 @@ module.exports.register = (email, firstName, lastName, password, phoneNumber) =>
             if (err) reject(err)
             if (result.length === 0){
                 connection.query(`INSERT INTO users 
-                    (email, first-name ,last-name ,password, phone_number) VALUES (?, ?, ?, ?, ?)`,
+                    (email, first_name ,last_name ,password, phone_number) VALUES (?, ?, ?, ?, ?)`,
                     [email, firstName, lastName, password, phoneNumber],(err, result) => {
                         if (err) reject(err)
                         resolve(result)
                     })
-            }
-            reject({message: "email is already used"})
+            }else reject({message: "email is already used"})
         })
     })
 }

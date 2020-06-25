@@ -3,7 +3,10 @@ const router = express.Router()
 const bcrypt = require('bcrypt')
 const register = require("../query/register")
 const login = require('../query/login')
-const tokens = require('../tokens/tokenAuth')
+const tokens = require('../authHelpers/tokenAuth')
+const {hashPassword} = require("../authHelpers/passwordManagement");
+const {comparePasswords} = require("../authHelpers/passwordManagement");
+
 router.post('/register', async (req, res) => {
     let {email, firstName, lastName, password, phoneNumber} = req.body
     try{
@@ -40,22 +43,4 @@ router.post('/login', async (req, res) => {
         res.send({"error": e})
     }
 })
-
-
-const hashPassword = (password, salt) => {
-    return new Promise((resolve, reject) => {
-        bcrypt.hash(password, salt, (err, hash) => {
-            if (err) reject(err)
-            resolve(hash)
-        })
-    })
-}
-
-const comparePasswords = (password, hash) => {
-    return new Promise((resolve, reject) => {
-        bcrypt.compare(password, hash, (err, result) => {
-            if(err) reject(err)
-            resolve(result)
-        })
-    })
-}
+module.exports = router

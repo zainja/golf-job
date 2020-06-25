@@ -1,8 +1,8 @@
 const express = require('express')
 const jwt = require("jsonwebtoken");
 const router = express.Router()
-const tokenAuth = require('../tokens/tokenAuth')
-app.post('/', (req, res) => {
+const tokenAuth = require('../authHelpers/tokenAuth')
+router.post('/', (req, res) => {
     const token = req.body.token
     if (token === null) return res.status(401).send({error: "login expired"})
     jwt.verify(token, process.env.REFRESH_TOKEN_SECRET, (err, result) =>{
@@ -11,3 +11,5 @@ app.post('/', (req, res) => {
         res.json(accessToken)
     })
 })
+
+module.exports = router
