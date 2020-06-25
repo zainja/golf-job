@@ -15,3 +15,13 @@ module.exports.register = (email, firstName, lastName, password, phoneNumber) =>
         })
     })
 }
+
+module.exports.validateEmail = (email) => {
+    return new Promise(((resolve, reject) => {
+        connection.query("UPDATE users SET email_verified=TRUE WHERE email = ?",
+            [email],(err, result) => {
+            if (err) reject(err)
+            resolve(result)
+        })
+    }))
+}
