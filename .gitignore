@@ -1,4 +1,8 @@
 .idea
+.idea/*
 client/node_modules
 server/.env
 server/node_modules
+test.http
+node_modules/
+package-lock.json

@@ -1,0 +1,439 @@
+POST http://localhost:5000/auth/login
+Content-Type: application/json
+
+{"email": "jaffalzainalden@gmail.com", "password": "12313"}
+
+<> 2020-06-25T123532.403.json
+
+###
+
+POST http://localhost:5000/auth/register
+Content-Type: application/json
+
+{"email": "jaffalzainalden@gmail.com", "firstName": "Zain", "lastName": "Jaffal", "password": "12313", "phoneNumber":  "2323232"}
+
+<> 2020-06-25T123314.200.json
+
+###
+
+POST http://localhost:5000/token
+Content-Type: application/json
+
+{"refreshToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Inp6QGdtYWlsLmNvbSIsImlhdCI6MTU5MzA3NjYzNCwiZXhwIjoxNTkzOTQwNjM0fQ.nHDyTRNw7OZkLPyYupiI_Deo61bjoc5bwmf4zMb8LiM"}
+
+<> 2020-06-25T102004.200.json
+
+###
+
+POST http://localhost:5000/token
+Content-Type: application/json
+
+{"refreshToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Inp6QGdtYWlsLmNvbSIsImlhdCI6MTU5MzA3NjYzNCwiZXhwIjoxNTkzOTQwNjM0fQ.nHDyTRNw7OZkLPyYupiI_Deo61bjoc5bwmf4zMb8LiM"}
+
+<> 2020-06-25T102000.200.json
+
+###
+
+POST http://localhost:5000/token
+Content-Type: application/json
+
+{"refreshToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Inp6QGdtYWlsLmNvbSIsImlhdCI6MTU5MzA3NjYzNCwiZXhwIjoxNTkzOTQwNjM0fQ.nHDyTRNw7OZkLPyYupiI_Deo61bjoc5bwmf4zMb8LiM"}
+
+<> 2020-06-25T101934.403.json
+
+###
+
+POST http://localhost:5000/token
+Content-Type: application/json
+
+{"refreshToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Inp6QGdtYWlsLmNvbSIsImlhdCI6MTU5MzA3NjYzNCwiZXhwIjoxNTkzOTQwNjM0fQ.nHDyTRNw7OZkLPyYupiI_Deo61bjoc5bwmf4zMb8LiM"}
+
+<> 2020-06-25T101919.403.json
+
+###
+
+POST http://localhost:5000/token
+Content-Type: application/json
+
+{"refreshToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Inp6QGdtYWlsLmNvbSIsImlhdCI6MTU5MzA3NjYzNCwiZXhwIjoxNTkzOTQwNjM0fQ.nHDyTRNw7OZkLPyYupiI_Deo61bjoc5bwmf4zMb8LiM"}
+
+<> 2020-06-25T101810.403.json
+
+###
+
+POST http://localhost:5000/token
+Content-Type: application/json
+
+{"refreshToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Inp6QGdtYWlsLmNvbSIsImlhdCI6MTU5MzA3NjYzNCwiZXhwIjoxNTkzOTQwNjM0fQ.nHDyTRNw7OZkLPyYupiI_Deo61bjoc5bwmf4zMb8LiM"}
+
+<> 2020-06-25T101809.403.json
+
+###
+
+POST http://localhost:5000/token
+Content-Type: application/json
+
+{"refreshToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Inp6QGdtYWlsLmNvbSIsImlhdCI6MTU5MzA3NjYzNCwiZXhwIjoxNTkzOTQwNjM0fQ.nHDyTRNw7OZkLPyYupiI_Deo61bjoc5bwmf4zMb8LiM"}
+
+<> 2020-06-25T101805.403.json
+
+###
+
+POST http://localhost:5000/token
+Content-Type: application/json
+
+{"refreshToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Inp6QGdtYWlsLmNvbSIsImlhdCI6MTU5MzA3NjYzNCwiZXhwIjoxNTkzOTQwNjM0fQ.nHDyTRNw7OZkLPyYupiI_Deo61bjoc5bwmf4zMb8LiM"}
+
+<> 2020-06-25T101725.403.json
+
+###
+
+POST http://localhost:5000/auth/login
+Content-Type: application/json
+
+{"email": "zz@gmail.com", "password": "12313"}
+
+<> 2020-06-25T101714.200.json
+
+###
+
+POST http://localhost:5000/token
+Content-Type: application/json
+
+{"refreshToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Inp6QGdtYWlsLmNvbSIsImlhdCI6MTU5MzA3NjQzOCwiZXhwIjoxNTkzOTQwNDM4fQ.TPg6WorSueOzw-YammxZJoORgzwkNT2WWl5UZzZgZ9E"}
+
+<> 2020-06-25T101412.403.json
+
+###
+
+POST http://localhost:5000/auth/login
+Content-Type: application/json
+
+{"email": "zz@gmail.com", "password": "12313"}
+
+<> 2020-06-25T101358.200.json
+
+###
+
+POST http://localhost:5000/token
+Content-Type: application/json
+
+{"refreshToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Inp6QGdtYWlsLmNvbSIsImlhdCI6MTU5MzA3NjM1NCwiZXhwIjoxNTkzOTQwMzU0fQ.l9e3lXu231Ci4UqRJAMGo5b0wWLiPZrimJD85D9020M"}
+
+<> 2020-06-25T101349.403.json
+
+###
+
+POST http://localhost:5000/token
+Content-Type: application/json
+
+{"refreshToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Inp6QGdtYWlsLmNvbSIsImlhdCI6MTU5MzA3NjM1NCwiZXhwIjoxNTkzOTQwMzU0fQ.l9e3lXu231Ci4UqRJAMGo5b0wWLiPZrimJD85D9020M"}
+
+<> 2020-06-25T101344.403.json
+
+###
+
+POST http://localhost:5000/auth/login
+Content-Type: application/json
+
+{"email": "zz@gmail.com", "password": "12313"}
+
+<> 2020-06-25T101234.200.json
+
+###
+
+POST http://localhost:5000/auth/login
+Content-Type: application/json
+
+{"email": "zz@gmail.com", "password": "newYOrk"}
+
+<> 2020-06-25T101219.401.json
+
+###
+
+POST http://localhost:5000/auth/login
+Content-Type: application/json
+
+{"email": "zz@gmail.com", "password": "newYOrk"}
+
+###
+
+POST http://localhost:5000/auth/login
+Content-Type: application/json
+
+{"email": "zz@gmail.com", "password": "1222"}
+
+<> 2020-06-25T101151.500.json
+
+###
+
+POST http://localhost:5000/auth/login
+Content-Type: application/json
+
+{"email": "zz@gmail.com", "password": "1222"}
+
+<> 2020-06-25T101102.400.txt
+
+###
+
+POST http://localhost:5000/auth/login
+Content-Type: application/json
+
+{"email": "zz@gmail.com", "password": "1222"}
+
+###
+
+POST http://localhost:5000/auth/login
+Content-Type: application/json
+
+{"email": "zz@gmail.com", "password": "1222"}
+
+<> 2020-06-25T101040.400.txt
+
+###
+
+POST http://localhost:5000/auth/login
+Content-Type: application/json
+
+{"email": "zz@gmail.com", "password": "1222"}
+
+<> 2020-06-25T101038.400.txt
+
+###
+
+POST http://localhost:5000/auth/login
+Content-Type: application/json
+
+{"email": "zz@gmail.com", "password": "1222"}
+
+<> 2020-06-25T101037-1.400.txt
+
+###
+
+POST http://localhost:5000/auth/login
+Content-Type: application/json
+
+{"email": "zz@gmail.com", "password": "1222"}
+
+<> 2020-06-25T101037.400.txt
+
+###
+
+POST http://localhost:5000/auth/login
+Content-Type: application/json
+
+{"email": "zz@gmail.com", "password": "1222"}
+
+<> 2020-06-25T101035.400.txt
+
+###
+
+POST http://localhost:5000/auth/login
+Content-Type: application/json
+
+{"email": "zz@gmail.com", "password": "1222"}
+
+<> 2020-06-25T101034.400.txt
+
+###
+
+POST http://localhost:5000/auth/login
+Content-Type: application/json
+
+{"email": "zz@gmail.com", "password": "1222"}
+
+<> 2020-06-25T101032.400.txt
+
+###
+
+POST http://localhost:5000/auth/login
+Content-Type: application/json
+
+{"email": "zz@gmail.com", "password": "1222"}
+
+<> 2020-06-25T101030.400.txt
+
+###
+
+POST http://localhost:5000/auth/login
+Content-Type: application/json
+
+{"email": "zz@gmail.com", "password": "1222"}
+
+<> 2020-06-25T101005.400.txt
+
+###
+
+POST http://localhost:5000/auth/login
+Content-Type: application/json
+
+{"email": "zz@gmail.com", "password": "w"}
+
+<> 2020-06-25T100822.400.txt
+
+###
+
+POST http://localhost:5000/auth/login
+Content-Type: application/json
+
+{"email": "zz@gmail.com", "password": "w"}
+
+###
+
+POST http://localhost:5000/auth/login
+Content-Type: application/json
+
+{"email": "zz@gmail.com", "password": "w"}
+
+<> 2020-06-25T100746.400.txt
+
+###
+
+POST http://localhost:5000/auth/login
+Content-Type: application/json
+
+{"email": "zz@gmail.com", "password": "newYOrk"}
+
+<> 2020-06-25T100730.400.txt
+
+###
+
+POST http://localhost:5000/auth/register
+Content-Type: application/json
+
+{"email": "zz@gmail.com", "firstName": "Zain", "lastName": "Jaffal", "password": "12313", "phoneNumber":  "2323232"}
+
+<> 2020-06-25T100725.401.json
+
+###
+
+POST http://localhost:5000/auth/login
+Content-Type: application/json
+
+{"email": "zz@gmail.com", "password": "newYOrk"}
+
+<> 2020-06-25T100721.400.txt
+
+###
+
+POST http://localhost:5000/auth/login
+Content-Type: application/json
+
+{"email": "zz@gmail.com", "password": "newYOrk"}
+
+<> 2020-06-25T100720.400.txt
+
+###
+
+POST http://localhost:5000/auth/login
+Content-Type: application/json
+
+{"email": "zz@gmail.com", "password": "newYOrk"}
+
+<> 2020-06-25T100717.400.txt
+
+###
+
+POST http://localhost:5000/auth/login
+Content-Type: application/json
+
+{"email": "zz@gmail.com", "password": "newYOrk"}
+
+<> 2020-06-25T100715.400.txt
+
+###
+
+POST http://localhost:5000/auth/login
+Content-Type: application/json
+
+{"email": "zz@gmail.com", "password": "newYOrk"}
+
+<> 2020-06-25T100643.400.txt
+
+###
+
+POST http://localhost:5000/auth/login
+Content-Type: application/json
+
+{"email": "zz@gmail.com", "password": "newYOrk"}
+
+<> 2020-06-25T100635.400.txt
+
+###
+
+POST http://localhost:5000/auth/resetPassword
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Inp6QGdtYWlsLmNvbSIsImlhdCI6MTU5MzA3NTkzNiwiZXhwIjoxNTkzMDc2NTM2fQ.c125RT8VM2o5FMiNL3gD43laq7nBl1yhTEIopSvgdIw
+Content-Type: application/json
+
+{"password": "newYOrk"}
+
+<> 2020-06-25T100620.200.json
+
+###
+
+POST http://localhost:5000/auth/login
+Content-Type: application/json
+
+{"email": "zz@gmail.com", "password": "12313"}
+
+<> 2020-06-25T100536.200.json
+
+###
+
+POST http://localhost:5000/auth/login
+Content-Type: application/json
+
+{"email": "zz@gmail.com", "password": "12313"}
+
+<> 2020-06-25T095620.200.json
+
+###
+
+POST http://localhost:5000/auth/login
+Content-Type: application/json
+
+{"email": "zz@gmail.com", "password": "12313"}
+
+<> 2020-06-25T095504.400.json
+
+###
+
+POST http://localhost:5000/auth/login
+Content-Type: application/json
+
+{"email": "zz@gmail.com", "password": "12313"}
+
+###
+
+POST http://localhost:5000/auth/login
+Content-Type: application/json
+
+{"email": "zz@gmail.com", "password": "12313"}
+
+<> 2020-06-25T095357.400.json
+
+###
+
+POST http://localhost:5000/auth/login
+Content-Type: application/json
+
+{"email": "zz@gmail.com", "password": "111"}
+
+<> 2020-06-25T095329.400.txt
+
+###
+
+POST http://localhost:5000/auth/login
+Content-Type: application/json
+
+{"email": "zz@gmail.com", "password": "111"}
+
+###
+
+POST http://localhost:5000/auth/login
+Content-Type: application/json
+
+{"email": "zz@gmail.com", "password": "111"}
+
+###
+
