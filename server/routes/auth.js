@@ -9,21 +9,32 @@ const {comparePasswords} = require("../authHelpers/passwordManagement");
 const tokenAuth = require('../authHelpers/tokenAuth')
 const sendEmail = require('../email/sendEmail')
 const emailTemplate = require('../email/emailTemplate')
+const crypto = require('crypto')
 const emailMsgs = require('../email/emailMsgs')
 router.post('/register', async (req, res) => {
     let {email, firstName, lastName, password, phoneNumber} = req.body
     try{
         const hashedPassword = await hashPassword(password, 10)
-        await register.register(email, firstName, lastName, hashedPassword, phoneNumber)
+        const checkResult = await register.checkAccount(email)
+        let messageToSend = null
+        if (checkResult === 1){
+            res.status(403)
+            await res.json({msgs: emailMsgs.alreadyConfirm})
+            return
+        }else if (checkResult === 0){
+            messageToSend = emailMsgs.resend
+        }else {
+            await register.register(email, firstName, lastName, password, phoneNumber)
+        }
         const emailObj = {email: email}
         const accessToken = tokens.generateAccessToken(emailObj)
         const refreshToken = tokens.generateRefreshToken(emailObj)
-        const hashEmail = await hashPassword(email, 10)
-        await sendEmail(email, emailTemplate.confirm(hashEmail))
-        await res.json({
+        const random = crypto.randomBytes(64).toString('hex')
+        await sendEmail(email, emailTemplate.confirm(random))
+         res.json({
             accessToken: accessToken,
             refreshToken: refreshToken,
-            msgs: emailMsgs.confirm
+            msgs: messageToSend
         })
     }catch (e) {
         res.status(401)
