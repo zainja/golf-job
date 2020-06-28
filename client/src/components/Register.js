@@ -1,7 +1,6 @@
 import React,{useState, useEffect} from "react";
 import axios from 'axios'
-import API_ROUTE from "../config";
-import Redirect from "react-router-dom/es/Redirect";
+
 const Register = (props) => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
@@ -9,8 +8,8 @@ const Register = (props) => {
     const [firstName, setFirstName] = useState("")
     const [lastName, setLastName] = useState("")
     const [phone, setPhone] = useState("")
-    const [redirect, setRedirect] = useState(false)
-    const [redirectDestination, setRedirectDestination] = useState("")
+    let redirectDestination = ""
+
     const handleChange = (e) => {
         const {id, value} = e.target
         switch (id) {
@@ -48,19 +47,18 @@ const Register = (props) => {
             axios.post(`/auth/register`, registerObj)
                 .then(res => {
                     if (res.status === 200){
-                        setRedirect(true)
-                        setRedirectDestination("/confirm")
+                        redirectDestination  = "/confirm"
                         return res.data;
                     }else{
-                        setRedirect(true)
-                        setRedirectDestination("/login")
+                        redirectDestination = "/login"
                         return res.data;
                     }
 
                 }).then(data => {
                     props.history.push(redirectDestination, data.msgs)
                     if (data.accessToken !== null){
-                        console.log(data.accessToken)
+                        localStorage.setItem("access-token", data.accessToken)
+                        localStorage.setItem("refresh-token", data.refreshToken)
                     }
             }).catch(err => document.getElementById("errors").innerText = "error")
         }else {
