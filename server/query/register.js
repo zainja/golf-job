@@ -14,10 +14,11 @@ module.exports.register = (email, firstName, lastName, password, phoneNumber) =>
 module.exports.checkAccount = (email) => {
     return new Promise((resolve, reject) => {
         connection.query("SELECT email_verified FROM users WHERE email = ?", [email],(err, result) =>{
+            console.log(result[0].email_verified)
             if (err) reject(err)
             if (result.length === 0){
                 resolve(-1)
-            }else if (result[0].email_verified === true){
+            }else if (result[0].email_verified === 1){
                 resolve(1)
             }else(
                 resolve(0)

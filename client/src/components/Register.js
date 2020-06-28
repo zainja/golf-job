@@ -1,13 +1,16 @@
 import React,{useState, useEffect} from "react";
-
-const Register = () => {
+import axios from 'axios'
+import API_ROUTE from "../config";
+import Redirect from "react-router-dom/es/Redirect";
+const Register = (props) => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [confirmPassword, setConfirmPassword] = useState("")
     const [firstName, setFirstName] = useState("")
     const [lastName, setLastName] = useState("")
     const [phone, setPhone] = useState("")
-
+    const [redirect, setRedirect] = useState(false)
+    const [redirectDestination, setRedirectDestination] = useState("")
     const handleChange = (e) => {
         const {id, value} = e.target
         switch (id) {
@@ -34,7 +37,34 @@ const Register = () => {
         e.preventDefault()
 
         if (password === confirmPassword){
-            alert("Submitted")
+            const registerObj =
+                {
+                    email: email,
+                    firstName: firstName,
+                    lastName: lastName,
+                    password: password,
+                    phoneNumber: phone
+                }
+            axios.post(`/auth/register`, registerObj)
+                .then(res => {
+                    if (res.status === 200){
+                        setRedirect(true)
+                        setRedirectDestination("/confirm")
+                        return res.data;
+                    }else{
+                        setRedirect(true)
+                        setRedirectDestination("/login")
+                        return res.data;
+                    }
+
+                }).then(data => {
+                    props.history.push(redirectDestination, data.msgs)
+                    if (data.accessToken !== null){
+                        console.log(data.accessToken)
+                    }
+            }).catch(err => document.getElementById("errors").innerText = "error")
+        }else {
+            document.getElementById("errors").innerText = "Passwords don't match"
         }
     }
     return(
@@ -44,6 +74,7 @@ const Register = () => {
             </div>
             <form className="container-fluid" onSubmit={onSubmit}>
                 <div className="form-group">
+                    <h1 className="danger" id="errors"/>
                     <label htmlFor="email">Email address</label>
                     <input type="email"
                            className="form-control"

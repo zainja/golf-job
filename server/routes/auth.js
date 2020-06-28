@@ -18,12 +18,14 @@ router.post('/register', async (req, res) => {
         const checkResult = await register.checkAccount(email)
         let messageToSend = null
         if (checkResult === 1){
-            res.status(403)
+            res.status(205)
             await res.json({msgs: emailMsgs.alreadyConfirm})
             return
         }else if (checkResult === 0){
+            res.status(203)
             messageToSend = emailMsgs.resend
         }else {
+            res.status(200)
             await register.register(email, firstName, lastName, password, phoneNumber)
         }
         const emailObj = {email: email}

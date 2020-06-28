@@ -1,5 +1,6 @@
 const express = require('express')
 const dotenv = require('dotenv')
+const cors = require('cors')
 const auth = require('./routes/auth')
 const token = require('./routes/token')
 const port = 5000 | process.env.PORT
