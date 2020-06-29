@@ -1,8 +1,9 @@
 import React, {useState} from "react";
-
-const Login = () => {
+import axios from 'axios'
+const Login = (props) => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const [errorMessage, setErrorMessage] = useState("")
     const handleChange = (e) => {
         const {id, value} = e.target
         if (id === "email"){
@@ -12,7 +13,19 @@ const Login = () => {
         }
     }
     const onSubmit = (e) => {
-        e.preventDefault()
+        axios.post('/auth/login', {
+            email: email,
+            password: password
+        }) .then(r => r.data)
+            .then(data => {
+                localStorage.setItem("access-token", data.accessToken)
+                localStorage.setItem("refresh-token", data.refreshToken)
+                setErrorMessage("")
+                props.history.push("/")
+
+            })
+            .catch(err => setErrorMessage(err.response.data.error))
+
     }
     return(
         <div>
@@ -21,6 +34,7 @@ const Login = () => {
             </div>
 
             <form className="container" onSubmit={onSubmit}>
+                <h1 className="alert-danger">{errorMessage}</h1>
                 <div className="form-group">
                     <label htmlFor="email">Email address</label>
                     <input type="email"
