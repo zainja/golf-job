@@ -23,6 +23,17 @@ module.exports.registerTokenAuth = (req, res, next) => {
     })
 }
 
+module.exports.resetPasswordTokenAuth = (req, res, next) => {
+    const authHeader = req.headers['authorization']
+    const token = authHeader && authHeader.split(' ')[1]
+    if (token == null) return res.status(401).send({msgs: "reset password link expired"})
+    jwt.verify(token, process.env.RESET_PASSWORD_TOKEN_SECRET, (err, emailObj) => {
+        if (err) return res.status(403).send({msgs: "reset password link expired"})
+        req.email = emailObj
+        next()
+    })
+}
+
 module.exports.generateAccessToken = (email) => {
     return jwt.sign(email, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '1h'})
 }
@@ -33,4 +44,8 @@ module.exports.generateRefreshToken = (email) => {
 
 module.exports.generateRegisterToken = (email) => {
     return jwt.sign(email, process.env.REFRESH_TOKEN_SECRET, {expiresIn: '2 days'})
+}
+
+module.exports.generateResetPasswordToken = (email) => {
+    return jwt.sign(email, process.env.RESET_PASSWORD_TOKEN_SECRET, {expiresIn: '2h'})
 }
