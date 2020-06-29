@@ -19,3 +19,7 @@ module.exports.generateAccessToken = (email) => {
 module.exports.generateRefreshToken = (email) => {
     return jwt.sign(email, process.env.REFRESH_TOKEN_SECRET, {expiresIn: '10 days'})
 }
+
+module.exports.generateRegisterToken = (email) => {
+    return jwt.sign(email, process.env.REFRESH_TOKEN_SECRET, {expiresIn: '2 days'})
+}

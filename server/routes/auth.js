@@ -22,7 +22,7 @@ router.post('/register', async (req, res) => {
             await res.json({msgs: emailMsgs.alreadyConfirm})
             return
         }else if (checkResult === 0){
-            res.status(403)
+            res.status(203)
             messageToSend = emailMsgs.resend
         }else {
             res.status(200)
