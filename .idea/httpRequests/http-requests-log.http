@@ -1,6 +1,24 @@
 POST http://localhost:5000/auth/login
 Content-Type: application/json
 
+{"email": "zainjaffal@gmail.com", "password": "123456"}
+
+<> 2020-06-29T103119.401.json
+
+###
+
+POST http://localhost:5000/auth/login
+Content-Type: application/json
+
+{"email": "zainjaffal@gmail.com", "password": "12313"}
+
+<> 2020-06-29T103013.401.json
+
+###
+
+POST http://localhost:5000/auth/login
+Content-Type: application/json
+
 {"email": "jaffalzainalden@gmail.com", "password": "12313"}
 
 <> 2020-06-29T012906.403.json
@@ -423,22 +441,6 @@ Content-Type: application/json
 {"email": "zz@gmail.com", "password": "12313"}
 
 <> 2020-06-25T095504.400.json
-
-###
-
-POST http://localhost:5000/auth/login
-Content-Type: application/json
-
-{"email": "zz@gmail.com", "password": "12313"}
-
-###
-
-POST http://localhost:5000/auth/login
-Content-Type: application/json
-
-{"email": "zz@gmail.com", "password": "12313"}
-
-<> 2020-06-25T095357.400.json
 
 ###
 

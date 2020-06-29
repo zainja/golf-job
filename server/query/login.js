@@ -32,7 +32,7 @@ module.exports.login = (email) => {
 
 module.exports.resetPassword = (email, newPassword) => {
     return new Promise((resolve, reject) => {
-        connection.query("UPDATE users SET password = ? WHERE email = ?", [email, newPassword],(err, result) =>{
+        connection.query("UPDATE users SET password = ? WHERE email = ?", [newPassword, email],(err, result) =>{
             if (err) reject(err)
             resolve(result)
         })

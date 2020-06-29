@@ -3,7 +3,6 @@ const router = express.Router()
 const bcrypt = require('bcrypt')
 const register = require("../query/register")
 const login = require('../query/login')
-const tokens = require('../authHelpers/tokenAuth')
 const {hashPassword} = require("../authHelpers/passwordManagement");
 const {comparePasswords} = require("../authHelpers/passwordManagement");
 const tokenAuth = require('../authHelpers/tokenAuth')
@@ -18,7 +17,7 @@ router.post('/register', async (req, res) => {
         const hashedPassword = await hashPassword(password, 10)
         await register.register(email, firstName, lastName, hashedPassword, phoneNumber)
         const emailObj = {email: email}
-        const registerToken = tokens.generateRegisterToken(emailObj)
+        const registerToken = tokenAuth.generateRegisterToken(emailObj)
         const random = crypto.randomBytes(64).toString('hex')
         await sendEmail(email, emailTemplate.confirm(random))
          res.json({
@@ -52,8 +51,8 @@ router.post('/login', async (req, res) => {
             emailObj = {
                 email: email
             }
-            const accessToken = tokens.generateAccessToken(emailObj)
-            const refreshToken = tokens.generateRefreshToken(emailObj)
+            const accessToken = tokenAuth.generateAccessToken(emailObj)
+            const refreshToken = tokenAuth.generateRefreshToken(emailObj)
             await res.json({
                 accessToken: accessToken,
                 refreshToken: refreshToken
@@ -81,23 +80,32 @@ router.put('/validate', tokenAuth.registerTokenAuth , async (req, res) => {
 })
 
 router.post('/request-reset-password', async (req, res) => {
-    const {email} = req.body.email
+    const {email} = req.body
     if (email === null) return res.status(404).send({msgs: "email must be filled"})
-    const resetPasswordToken = await tokenAuth.generateResetPasswordToken(email)
-    const random = crypto.randomBytes(64).toString('hex')
-    await sendEmail(email, resetPasswordTemplate.reset(random))
-    res.send({resetPasswordToken: resetPasswordToken})
+    try {
+        const emailObj = {email: email}
+        const resetPasswordToken = tokenAuth.generateResetPasswordToken(emailObj)
+        const random = crypto.randomBytes(64).toString('hex')
+        await sendEmail(email, resetPasswordTemplate.reset(random))
+        console.log(resetPasswordToken)
+        res.send({resetPasswordToken: resetPasswordToken})
+    }catch (e) {
+        console.log(e)
+        res.sendStatus(500)
+    }
 })
 
-router.post('/resetPassword', tokenAuth.resetPasswordTokenAuth, async (req, res) => {
+router.post('/reset-password', tokenAuth.resetPasswordTokenAuth, async (req, res) => {
     const {email} = req.email
     const {password} = req.body
+    console.log(email)
+    console.log(password)
     try {
         const newPassword = await hashPassword(password,10)
-        await login.resetPassword(email, password)
+        await login.resetPassword(email, newPassword)
         res.send({"success": "Password is set"})
     }catch (e) {
-        res.send(e)
+        res.sendStatus(500)
     }
 })
 module.exports = router
