@@ -15,31 +15,18 @@ router.post('/register', async (req, res) => {
     let {email, firstName, lastName, password, phoneNumber} = req.body
     try{
         const hashedPassword = await hashPassword(password, 10)
-        const checkResult = await register.checkAccount(email)
-        let messageToSend = null
-        if (checkResult === 1){
-            res.status(400)
-            await res.json({msgs: emailMsgs.alreadyConfirm})
-            return
-        }else if (checkResult === 0){
-            res.status(203)
-            messageToSend = emailMsgs.resend
-        }else {
-            res.status(200)
-            await register.register(email, firstName, lastName, password, phoneNumber)
-        }
+        await register.register(email, firstName, lastName, hashedPassword, phoneNumber)
         const emailObj = {email: email}
-        const accessToken = tokens.generateAccessToken(emailObj)
-        const refreshToken = tokens.generateRefreshToken(emailObj)
+        const registerToken = tokens.generateRegisterToken(emailObj)
         const random = crypto.randomBytes(64).toString('hex')
         await sendEmail(email, emailTemplate.confirm(random))
          res.json({
-            accessToken: accessToken,
-            refreshToken: refreshToken,
-            msgs: messageToSend
+            registerToken: registerToken,
+            msgs: emailMsgs.confirm
         })
     }catch (e) {
-        res.status(401)
+        res.status(403)
+            .send({msgs: "Email has been already submitted"})
     }
 })
 
@@ -80,7 +67,7 @@ router.post('/login', async (req, res) => {
     }
 })
 
-router.put('/validate', tokenAuth.authToken , async (req, res) => {
+router.put('/validate', tokenAuth.registerTokenAuth , async (req, res) => {
     const {email} = req.email
     try {
         await register.validateEmail(email)
