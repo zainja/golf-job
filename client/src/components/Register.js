@@ -47,7 +47,7 @@ const Register = (props) => {
             axios.post(`/auth/register`, registerObj)
                 .then(res => res.data)
                 .then(data => {
-                    localStorage.setItem("access-token", data.registerToken)
+                    localStorage.setItem("register-token", data.registerToken)
                     props.history.push("/confirm-sent", data.msgs)
             }).catch(err => {
                 document.getElementById("errors").innerText = err.response.data.msgs

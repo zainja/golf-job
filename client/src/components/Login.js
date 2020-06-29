@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import axios from 'axios'
+import {Link} from "react-router-dom";
 const Login = (props) => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
@@ -60,7 +61,10 @@ const Login = (props) => {
                         placeholder="Password"
                     />
                 </div>
-
+                <Link to="/forgot-password">
+                    <small> forgot your password ?</small>
+                </Link>
+                <br/>
                 <button type="submit" className="btn btn-primary">Login</button>
             </form>
         </div>

@@ -1,15 +1,21 @@
-import React, {useEffect} from "react";
+import React, {useState, useEffect} from "react";
 import axios from "axios";
+
 import axiosInstance from "../../handlingTokens/authIntreceptor";
+import {Link} from "react-router-dom";
 const ConfirmEmail = (props) => {
-    console.log(localStorage.getItem("access-token"))
+    const [confirmMessage, setConfirm] = useState("")
+    const [isConfirmed, setIsConfirmed] = useState(false)
     useEffect(() => {
         axiosInstance.put('/auth/validate', {},{
         headers: {
-        'Authorization': `Basic ${localStorage.getItem("access-token")}`
+        'Authorization': `Bearer ${localStorage.getItem("register-token")}`
         }
         }).then(r => r.data)
             .then(data => {
+                setConfirm("Email Has been confirmed")
+                setIsConfirmed("true")
+                localStorage.removeItem("register-token")
             })
             .catch(err => {
                 console.log(err)
@@ -19,7 +25,13 @@ const ConfirmEmail = (props) => {
             })
     },[])
     return (
-        <h1> Email Has been confirmed</h1>
+        <div className="container">
+            <h1>{confirmMessage}</h1>
+            {isConfirmed ? <Link to={"/login"}>
+                <h5> Go to login page</h5>
+            </Link> : null}
+        </div>
     )
+
 }
 export default ConfirmEmail
