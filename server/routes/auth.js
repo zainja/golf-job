@@ -44,7 +44,7 @@ router.post('/login', async (req, res) => {
             const emailHash = await hashPassword(email, 10)
             await sendEmail(email, emailTemplate.confirm(emailHash))
             res.json({
-                msgs: emailMsgs.resend
+                error: emailMsgs.resend
             })
         }
         else if ( await comparePasswords(password, result[0].password)){

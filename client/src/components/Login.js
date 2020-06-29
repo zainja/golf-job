@@ -13,6 +13,7 @@ const Login = (props) => {
         }
     }
     const onSubmit = (e) => {
+        e.preventDefault()
         axios.post('/auth/login', {
             email: email,
             password: password
@@ -34,7 +35,7 @@ const Login = (props) => {
             </div>
 
             <form className="container" onSubmit={onSubmit}>
-                <h1 className="alert-danger">{errorMessage}</h1>
+                <h3 className="alert-danger">{errorMessage}</h3>
                 <div className="form-group">
                     <label htmlFor="email">Email address</label>
                     <input type="email"

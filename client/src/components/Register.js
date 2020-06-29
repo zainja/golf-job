@@ -45,24 +45,11 @@ const Register = (props) => {
                     phoneNumber: phone
                 }
             axios.post(`/auth/register`, registerObj)
-                .then(res => {
-                    if (res.status === 200){
-                        redirectDestination  = "/confirm"
-                        return res.data;
-                    }else{
-                        redirectDestination = "/login"
-                        return res.data;
-                    }
-
-                }).then(data => {
-                    props.history.push(redirectDestination, data.msgs)
-                    if (data.accessToken !== null){
-                        localStorage.setItem("access-token", data.accessToken)
-                        localStorage.setItem("refresh-token", data.refreshToken)
-                        console.log(localStorage.getItem("access-token"))
-                    }
+                .then(res => res.data)
+                .then(data => {
+                    localStorage.setItem("access-token", data.registerToken)
+                    props.history.push("/confirm-sent", data.msgs)
             }).catch(err => {
-                console.log(err.response)
                 document.getElementById("errors").innerText = err.response.data.msgs
             })
         }else {

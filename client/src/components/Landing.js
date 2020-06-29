@@ -1,5 +1,5 @@
 import React from "react";
-
+import {withRouter} from 'react-router-dom';
 const Landing = (props) => {
     console.log(props)
     const logout = ()=> {
@@ -15,4 +15,4 @@ const Landing = (props) => {
         </div>
     )
 }
-export default Landing
+export default withRouter(Landing)

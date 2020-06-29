@@ -3,6 +3,34 @@ Content-Type: application/json
 
 {"email": "jaffalzainalden@gmail.com", "password": "12313"}
 
+<> 2020-06-29T012906.403.json
+
+###
+
+POST http://localhost:5000/auth/login
+Content-Type: application/json
+
+{"email": "zainjaffal@gmail.com", "password": "12313"}
+
+<> 2020-06-29T012705.200.json
+
+###
+
+PUT http://localhost:5000/auth/validate
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InphaW5qYWZmYWxAZ21haWwuY29tIiwiaWF0IjoxNTkzMzc3MTE4LCJleHAiOjE1OTMzODA3MTh9.-Minp9Oa9h4qslX21cBQrZV7vVBflNfMv1tIfoZ9B2Q
+
+{}
+
+<> 2020-06-28T095123.200.json
+
+###
+
+POST http://localhost:5000/auth/login
+Content-Type: application/json
+
+{"email": "jaffalzainalden@gmail.com", "password": "12313"}
+
 <> 2020-06-25T123532.403.json
 
 ###
@@ -411,29 +439,6 @@ Content-Type: application/json
 {"email": "zz@gmail.com", "password": "12313"}
 
 <> 2020-06-25T095357.400.json
-
-###
-
-POST http://localhost:5000/auth/login
-Content-Type: application/json
-
-{"email": "zz@gmail.com", "password": "111"}
-
-<> 2020-06-25T095329.400.txt
-
-###
-
-POST http://localhost:5000/auth/login
-Content-Type: application/json
-
-{"email": "zz@gmail.com", "password": "111"}
-
-###
-
-POST http://localhost:5000/auth/login
-Content-Type: application/json
-
-{"email": "zz@gmail.com", "password": "111"}
 
 ###
 
