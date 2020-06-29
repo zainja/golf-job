@@ -37,7 +37,7 @@ router.post('/login', async (req, res) => {
         const result = await login.login(email)
         if (result.length === 0){
             res.status(404)
-            res.send({error: "Incorrect email or password"})
+            res.send({error: "User Not found"})
         }
         else if (result[0].email_verified === false || result[0].email_verified === 0){
             res.status(403)

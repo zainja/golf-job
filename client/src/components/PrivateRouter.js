@@ -1,6 +1,8 @@
 import React from "react";
+
 import { Route , Redirect, withRouter } from 'react-router-dom';
 const PrivateRouter = ({component: Component, ...rest}) => {
+    console.log(localStorage.getItem('access-token'))
     return (
         <Route
             {...rest}
@@ -11,4 +13,4 @@ const PrivateRouter = ({component: Component, ...rest}) => {
         />
     )
 }
-  export default withRouter(PrivateRouter);
+export default withRouter(PrivateRouter);
