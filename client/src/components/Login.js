@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState} from "react";
 
 const Login = () => {
     const [email, setEmail] = useState("")
@@ -13,7 +13,6 @@ const Login = () => {
     }
     const onSubmit = (e) => {
         e.preventDefault()
-        alert("form submitted")
     }
     return(
         <div>
@@ -21,7 +20,7 @@ const Login = () => {
                 <h1 className="h1"> Login Page</h1>
             </div>
 
-            <form className="container-fluid" onSubmit={onSubmit}>
+            <form className="container" onSubmit={onSubmit}>
                 <div className="form-group">
                     <label htmlFor="email">Email address</label>
                     <input type="email"

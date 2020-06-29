@@ -18,11 +18,11 @@ router.post('/register', async (req, res) => {
         const checkResult = await register.checkAccount(email)
         let messageToSend = null
         if (checkResult === 1){
-            res.status(205)
+            res.status(400)
             await res.json({msgs: emailMsgs.alreadyConfirm})
             return
         }else if (checkResult === 0){
-            res.status(203)
+            res.status(403)
             messageToSend = emailMsgs.resend
         }else {
             res.status(200)
@@ -80,7 +80,7 @@ router.post('/login', async (req, res) => {
     }
 })
 
-router.get('/validate', tokenAuth.authToken , async (req, res) => {
+router.put('/validate', tokenAuth.authToken , async (req, res) => {
     const {email} = req.email
     try {
         await register.validateEmail(email)

@@ -59,8 +59,12 @@ const Register = (props) => {
                     if (data.accessToken !== null){
                         localStorage.setItem("access-token", data.accessToken)
                         localStorage.setItem("refresh-token", data.refreshToken)
+                        console.log(localStorage.getItem("access-token"))
                     }
-            }).catch(err => document.getElementById("errors").innerText = "error")
+            }).catch(err => {
+                console.log(err.response)
+                document.getElementById("errors").innerText = err.response.data.msgs
+            })
         }else {
             document.getElementById("errors").innerText = "Passwords don't match"
         }
@@ -70,7 +74,7 @@ const Register = (props) => {
             <div className="container-fluid jumbotron text-center">
                 <h1 className="cm-header-2"> Register Page</h1>
             </div>
-            <form className="container-fluid" onSubmit={onSubmit}>
+            <form className="container" onSubmit={onSubmit}>
                 <div className="form-group">
                     <h1 className="danger" id="errors"/>
                     <label htmlFor="email">Email address</label>
