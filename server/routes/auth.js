@@ -9,6 +9,7 @@ const {comparePasswords} = require("../authHelpers/passwordManagement");
 const tokenAuth = require('../authHelpers/tokenAuth')
 const sendEmail = require('../email/sendEmail')
 const emailTemplate = require('../email/emailTemplate')
+const resetPasswordTemplate = require('../email/resetPasswordTemplate')
 const crypto = require('crypto')
 const emailMsgs = require('../email/emailMsgs')
 router.post('/register', async (req, res) => {
@@ -79,7 +80,16 @@ router.put('/validate', tokenAuth.registerTokenAuth , async (req, res) => {
     }
 })
 
-router.post('/resetPassword', tokenAuth.authToken, async (req, res) => {
+router.post('/request-reset-password', async (req, res) => {
+    const {email} = req.body.email
+    if (email === null) return res.status(404).send({msgs: "email must be filled"})
+    const resetPasswordToken = await tokenAuth.generateResetPasswordToken(email)
+    const random = crypto.randomBytes(64).toString('hex')
+    await sendEmail(email, resetPasswordTemplate.reset(random))
+    res.send({resetPasswordToken: resetPasswordToken})
+})
+
+router.post('/resetPassword', tokenAuth.resetPasswordTokenAuth, async (req, res) => {
     const {email} = req.email
     const {password} = req.body
     try {
