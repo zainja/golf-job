@@ -11,13 +11,16 @@ const emailTemplate = require('../email/emailTemplate')
 const resetPasswordTemplate = require('../email/resetPasswordTemplate')
 const crypto = require('crypto')
 const emailMsgs = require('../email/emailMsgs')
+const {generateResetPasswordToken,
+    generateRegisterToken,
+    generateAccessToken} = require("../authHelpers/generateTokens");
 router.post('/register', async (req, res) => {
     let {email, firstName, lastName, password, phoneNumber} = req.body
     try{
         const hashedPassword = await hashPassword(password, 10)
         await register.register(email, firstName, lastName, hashedPassword, phoneNumber)
         const emailObj = {email: email}
-        const registerToken = tokenAuth.generateRegisterToken(emailObj)
+        const registerToken = generateRegisterToken(emailObj)
         const random = crypto.randomBytes(64).toString('hex')
         await sendEmail(email, emailTemplate.confirm(random))
          res.json({
@@ -51,8 +54,8 @@ router.post('/login', async (req, res) => {
             emailObj = {
                 email: email
             }
-            const accessToken = tokenAuth.generateAccessToken(emailObj)
-            const refreshToken = tokenAuth.generateRefreshToken(emailObj)
+            const accessToken = generateAccessToken(emailObj)
+            const refreshToken = generateRefreshToken(emailObj)
             await res.json({
                 accessToken: accessToken,
                 refreshToken: refreshToken
@@ -84,7 +87,7 @@ router.post('/request-reset-password', async (req, res) => {
     if (email === null) return res.status(404).send({msgs: "email must be filled"})
     try {
         const emailObj = {email: email}
-        const resetPasswordToken = tokenAuth.generateResetPasswordToken(emailObj)
+        const resetPasswordToken = generateResetPasswordToken(emailObj)
         const random = crypto.randomBytes(64).toString('hex')
         await sendEmail(email, resetPasswordTemplate.reset(random))
         console.log(resetPasswordToken)
