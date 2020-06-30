@@ -15,3 +15,7 @@ module.exports.generateRegisterToken = (email) => {
 module.exports.generateResetPasswordToken = (email) => {
     return jwt.sign(email, process.env.RESET_PASSWORD_TOKEN_SECRET, {expiresIn: '1h'})
 }
+
+module.exports.generateAdminAccessToken = (username, role) => {
+    return jwt.sign({username: username, role: role}, process.env.ADMIN_TOKEN_SECRET)
+}

@@ -44,8 +44,8 @@ router.post('/login', async (req, res) => {
         }
         else if (result[0].email_verified === false || result[0].email_verified === 0){
             res.status(403)
-            const emailHash = await hashPassword(email, 10)
-            await sendEmail(email, emailTemplate.confirm(emailHash))
+            const random = crypto.randomBytes(64).toString('hex')
+            await sendEmail(email, emailTemplate.confirm(random))
             res.json({
                 error: emailMsgs.resend
             })
