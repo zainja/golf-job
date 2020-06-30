@@ -17,7 +17,7 @@ const ResetPasswordConfirmed = (props) => {
                     localStorage.removeItem('reset-password-token')
                     props.history.push("/login")
                 })
-                .catch(err => console.log(err))
+                .catch(err => props.history.push('/rejected-reset-password'))
         }else {
              document.getElementById("confirmPassword").setCustomValidity("Passwords dont match")
          }
