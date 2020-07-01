@@ -2,7 +2,7 @@ const connection = require('../connection')
 
 module.exports.enterUser = (username) => {
     new Promise( (resolve, reject) => {
-        connection.query(`SELECT username, role FROM admin WHERE username = ?`, [username],
+        connection.query(`SELECT * FROM admin WHERE username = ?`, [username],
             (err, result) => {
                 if (err) reject(err)
                 if (result.length === 0) reject({msgs: "user not found"})
@@ -11,15 +11,7 @@ module.exports.enterUser = (username) => {
     } )
 }
 
-module.exports.login = (username, password) => {
-    new Promise((resolve, reject) => {
-        connection.query(`SELECT password FROM admin WHERE username = ?`,[username],
-            (err, result) => {
-                if (err) reject(err)
-                if (result[0].password === password) resolve({msgs: "user logged in"})
-            })
-    })
-}
+
 module.exports.register = (username, role) => {
     new Promise((resolve, reject) => {
         connection.query(`INSERT INTO admin (username, role) VALUES ( ?, ?)`, [username, role],
