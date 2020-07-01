@@ -4,12 +4,13 @@ const tokenAuth = require('../authHelpers/tokenAuth')
 const {comparePasswords} = require("../authHelpers/passwordManagement");
 const {hashPassword} = require("../authHelpers/passwordManagement");
 const {generateAdminAccessToken} = require("../authHelpers/generateTokens");
+const router = express.Router()
 router.post("/create-user", tokenAuth.adminAccessToken, async (req, res) => {
     const {role} = req.userObj
     if (role === "admin") {
         try {
-            const {username, userRole} = req.body
-            await admin.register(username, userRole)
+            const {username, firstName, lastName, userRole} = req.body
+            await admin.register(username, firstName, lastName, userRole)
             res.send({msgs: "user created"})
         } catch (e) {
             res.status(500).send({msgs: "user may already exist"})
@@ -20,14 +21,11 @@ router.post("/create-user", tokenAuth.adminAccessToken, async (req, res) => {
 
 router.post("/enter-user", async (req, res) => {
     const username = req.body.username
-    try {
+    try{
         const user = await admin.enterUser(username)
-        if (user[0].password === null){
-            res.status(403)
-            res.send({msgs: "password is not set"})
-        }
-    } catch (e) {
-        res.send(e)
+        res.send({hasPassword: user.password !== null})
+    }catch (e) {
+        res.status(404).send(e)
     }
 })
 
@@ -54,4 +52,4 @@ router.put("/enter-password", async (req, res) => {
     }
 })
 
-const router = express.Router()
+module.exports = router

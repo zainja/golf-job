@@ -20,6 +20,7 @@ module.exports.login = (email) => {
     return new Promise((resolve, reject) => {
         connection.query("SELECT email, password, email_verified FROM users WHERE email=?",
             [email],(err, result) => {
+            console.log(result)
             if (err){
                 reject(err)
             }
