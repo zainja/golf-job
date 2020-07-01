@@ -32,7 +32,7 @@ const PasswordEntry = (props) => {
                 localStorage.setItem("role", data.role)
                 props.history.push('/admin/main')
 
-            }).catch(err => console.log(err))
+            }).catch(err => alert(err.response.data.msgs))
     }
     return(
         <form onSubmit={onSubmit} className="container">
