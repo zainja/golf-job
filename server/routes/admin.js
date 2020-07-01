@@ -7,14 +7,17 @@ const {generateAdminAccessToken} = require("../authHelpers/generateTokens");
 const router = express.Router()
 router.post("/create-user", tokenAuth.adminAccessToken, async (req, res) => {
     const {role} = req.userObj
+    console.log(role)
     if (role === "admin") {
         try {
             const {username, firstName, lastName, userRole} = req.body
             await admin.register(username, firstName, lastName, userRole)
             res.send({msgs: "user created"})
         } catch (e) {
+            console.log(e)
             res.status(500).send({msgs: "user may already exist"})
         }
+        return
     }
     res.status(401).send({msgs: "You cannot create a user"})
 })

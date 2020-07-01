@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React,{useState, useEffect} from "react";
 import axios from 'axios'
 import {withRouter} from 'react-router-dom';
 import PasswordEntry from "./PasswordEntry";
@@ -7,6 +7,12 @@ const AdminLogin = (props) => {
     let [alertMessage, setAlertMessage] = useState("")
     let [hasPassword, setHasPassword] = useState(false)
     let [userSubmitted, setUserSubmitted] = useState(false)
+
+    useEffect(() => {
+        if (localStorage.getItem("admin-token") !== null){
+            props.history.push("/admin/main")
+        }
+    },[])
     const submitUserName = () => {
         axios.post("/admin/enter-user",{username: username})
             .then(response => response.data)

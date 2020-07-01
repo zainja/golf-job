@@ -14,7 +14,7 @@ module.exports.enterUser = (username) => {
 module.exports.register = (username, firstName, lastName, role) => {
     return new Promise((resolve, reject) => {
         connection.query(`INSERT INTO admin (username, first_name, last_name, role) VALUES ( ?, ?, ?, ?)`,
-            [username, role],
+            [username,firstName, lastName, role],
             (err, result) => {
                 if (err) reject(err)
                 resolve({msgs: "user created"})
