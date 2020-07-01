@@ -23,28 +23,28 @@ router.post("/enter-user", async (req, res) => {
     const username = req.body.username
     try{
         const user = await admin.enterUser(username)
+        console.log(user.password !== null)
         res.send({hasPassword: user.password !== null})
     }catch (e) {
         res.status(404).send(e)
     }
 })
 
-router.put("/enter-password", async (req, res) => {
+router.post("/enter-password", async (req, res) => {
     const {username, hasPassword, password} = req.body
     try {
         if (!hasPassword){
-            const passwordHash = hashPassword(password, 10)
+            const passwordHash = await hashPassword(password, 10)
             await admin.resetPassword(username, passwordHash)
-            const token = generateAdminAccessToken(username, user[0].role)
-            res.send({adminAccessToken: token})
-        }else {
-            const user = admin.enterUser(username)
-            if(await comparePasswords(password, user[0].password)){
-                const token = generateAdminAccessToken(username, user[0].role)
-                res.send({adminAccessToken: token})
-            }else{
-                res.send({msgs: "password is incorrect"})
-            }
+        }
+        const user = await admin.enterUser(username)
+        console.log(user)
+        if(await comparePasswords(password, user.password)){
+            console.log(true)
+            const token = generateAdminAccessToken(username, user.role)
+            res.send({adminAccessToken: token, role: user.role})
+        }else{
+            res.status(400).send({msgs: "password is incorrect"})
         }
     } catch (e) {
         res.status(404)
