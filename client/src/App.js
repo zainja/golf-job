@@ -1,12 +1,12 @@
 import React from "react";
 import {ToastProvider, useToasts} from 'react-toast-notifications'
 import {BrowserRouter, Route, Redirect, Switch} from 'react-router-dom'
-import Landing from "./components/Landing";
-import Login from "./components/Login";
+import Landing from "./components/user/Landing";
+import UserLogin from "./components/user/UserLogin";
 import PrivateRouter from "./components/routers/PrivateRouter";
 import RegisterRouter from "./components/routers/RegisterRouter";
 import PageNotFound from "./components/PageNotFound";
-import Register from "./components/Register";
+import UserRegister from "./components/user/UserRegister";
 import ConfirmationMessageSent from "./components/emailValidation/ConfirmationMessageSent";
 import ConfirmEmail from "./components/emailValidation/ConfirmEmail";
 import ResetPasswordRouter from "./components/routers/ResetPasswordRouter";
@@ -32,8 +32,8 @@ const App = () => {
                     <AdminRouter exact path="/admin/create-user" component={CreateUsers}/>
                     <Route exact path="/forgot-password" component={ResetPasswordRequest}/>
                     <Route exact path="/rejected-reset-password" component={ResetPasswordExpired}/>
-                    <Route exact path="/login" component={Login}/>
-                    <Route exact path="/register" component={Register}/>
+                    <Route exact path="/login" component={UserLogin}/>
+                    <Route exact path="/register" component={UserRegister}/>
                     <Route exact path="/admin/login" component={AdminLogin}/>
                     <Route component={PageNotFound}/>
                 </Switch>
