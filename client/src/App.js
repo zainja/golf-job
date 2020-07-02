@@ -1,11 +1,12 @@
 import React from "react";
-import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom'
-import Landing from "./components/Landing";
-import Login from "./components/Login";
+import {ToastProvider, useToasts} from 'react-toast-notifications'
+import {BrowserRouter, Route, Redirect, Switch} from 'react-router-dom'
+import Landing from "./components/user/Landing";
+import UserLogin from "./components/user/UserLogin";
 import PrivateRouter from "./components/routers/PrivateRouter";
 import RegisterRouter from "./components/routers/RegisterRouter";
 import PageNotFound from "./components/PageNotFound";
-import Register from "./components/Register";
+import UserRegister from "./components/user/UserRegister";
 import ConfirmationMessageSent from "./components/emailValidation/ConfirmationMessageSent";
 import ConfirmEmail from "./components/emailValidation/ConfirmEmail";
 import ResetPasswordRouter from "./components/routers/ResetPasswordRouter";
@@ -15,26 +16,29 @@ import ResetPasswordExpired from "./components/passwordOperations/ResetPasswordE
 import AdminLogin from "./components/admin/AdminLogin";
 import AdminRouter from "./components/routers/AdminRouter";
 import AdminMainPage from "./components/admin/AdminMainPage";
-import CreateUsers from "./components/admin/CreateUsers";
-
+import AdminRegister from "./components/admin/AdminRegister";
+import axios from 'axios'
 const App = () => {
     return (
-        <BrowserRouter>
-            <Switch>
-                <PrivateRouter exact path="/" component={Landing}/>
-                <RegisterRouter exact path="/confirm-sent" component={ConfirmationMessageSent}/>
-                <RegisterRouter exact path="/confirm/:id" component={ConfirmEmail}/>
-                <ResetPasswordRouter exact path="/reset/:id" component={ResetPasswordConfirmed}/>
-                <AdminRouter exact path="/admin/main" component={AdminMainPage}/>
-                <AdminRouter exact path="/admin/create-user" component={CreateUsers}/>
-                <Route exact path="/forgot-password" component={ResetPasswordRequest}/>
-                <Route exact path="/rejected-reset-password" component={ResetPasswordExpired}/>
-                <Route exact path="/login" component={Login}/>
-                <Route exact path="/register" component={Register}/>
-                <Route exact path="/admin/login" component={AdminLogin}/>
-                <Route component={PageNotFound}/>
-            </Switch>
-        </BrowserRouter>
+        <ToastProvider>
+
+            <BrowserRouter>
+                <Switch>
+                    <PrivateRouter exact path="/" component={Landing}/>
+                    <RegisterRouter exact path="/confirm-sent" component={ConfirmationMessageSent}/>
+                    <RegisterRouter exact path="/confirm/:id" component={ConfirmEmail}/>
+                    <ResetPasswordRouter exact path="/reset/:id" component={ResetPasswordConfirmed}/>
+                    <AdminRouter exact path="/admin/main" component={AdminMainPage}/>
+                    <Route exact path="/forgot-password" component={ResetPasswordRequest}/>
+                    <Route exact path="/rejected-reset-password" component={ResetPasswordExpired}/>
+                    <Route exact path="/login" component={UserLogin}/>
+                    <Route exact path="/register" component={UserRegister}/>
+                    <Route exact path="/admin/login" component={AdminLogin}/>
+                    <Route exact path="/admin/register" component={AdminRegister}/>
+                    <Route component={PageNotFound}/>
+                </Switch>
+            </BrowserRouter>
+        </ToastProvider>
     )
 
 }

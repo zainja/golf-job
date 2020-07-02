@@ -1,13 +1,13 @@
 import React, {useState, useEffect} from "react";
 import axios from "axios";
 
-import axiosInstance from "../../handlingTokens/authIntreceptor";
 import {Link} from "react-router-dom";
 const ConfirmEmail = (props) => {
     const [confirmMessage, setConfirm] = useState("")
     const [isConfirmed, setIsConfirmed] = useState(false)
     useEffect(() => {
-        axiosInstance.put('/auth/validate', {},{
+        console.log(localStorage.getItem("register-token"))
+        axios.put('/auth/validate', {},{
         headers: {
         'Authorization': `Bearer ${localStorage.getItem("register-token")}`
         }
@@ -18,7 +18,6 @@ const ConfirmEmail = (props) => {
                 localStorage.removeItem("register-token")
             })
             .catch(err => {
-                console.log(err)
                 if (err.status === 401){
                     props.history.push("/login")
                 }
