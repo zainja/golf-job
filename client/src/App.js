@@ -16,7 +16,7 @@ import ResetPasswordExpired from "./components/passwordOperations/ResetPasswordE
 import AdminLogin from "./components/admin/AdminLogin";
 import AdminRouter from "./components/routers/AdminRouter";
 import AdminMainPage from "./components/admin/AdminMainPage";
-import CreateUsers from "./components/admin/CreateUsers";
+import AdminRegister from "./components/admin/AdminRegister";
 
 const App = () => {
     return (
@@ -29,12 +29,12 @@ const App = () => {
                     <RegisterRouter exact path="/confirm/:id" component={ConfirmEmail}/>
                     <ResetPasswordRouter exact path="/reset/:id" component={ResetPasswordConfirmed}/>
                     <AdminRouter exact path="/admin/main" component={AdminMainPage}/>
-                    <AdminRouter exact path="/admin/create-user" component={CreateUsers}/>
                     <Route exact path="/forgot-password" component={ResetPasswordRequest}/>
                     <Route exact path="/rejected-reset-password" component={ResetPasswordExpired}/>
                     <Route exact path="/login" component={UserLogin}/>
                     <Route exact path="/register" component={UserRegister}/>
                     <Route exact path="/admin/login" component={AdminLogin}/>
+                    <Route exact path="/admin/register" component={AdminRegister}/>
                     <Route component={PageNotFound}/>
                 </Switch>
             </BrowserRouter>
