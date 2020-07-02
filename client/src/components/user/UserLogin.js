@@ -1,6 +1,5 @@
 import React, {useState} from "react";
 import axios from 'axios'
-import {Link} from "react-router-dom";
 import {useToasts } from 'react-toast-notifications'
 import Login from "../Forms/Login";
 
@@ -15,6 +14,7 @@ const UserLogin = (props) => {
             .then(data => {
                 localStorage.setItem("access-token", data.accessToken)
                 localStorage.setItem("refresh-token", data.refreshToken)
+                addToast(data.msgs, {appearance: 'success', autoDismiss: true})
                 props.history.push("/")
 
             })
@@ -27,7 +27,7 @@ const UserLogin = (props) => {
     }
 
     return(
-        <Login onSubmit={onSubmit}/>
+        <Login onSubmit={onSubmit} title="Login Page"/>
     )
 }
 export default UserLogin

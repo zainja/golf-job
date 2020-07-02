@@ -11,7 +11,7 @@ const Login = (props) => {
     return (
         <div>
             <div className="container-fluid jumbotron text-center">
-                <h1 className="h1"> Login Page</h1>
+                <h1 className="h1"> {props.title}</h1>
             </div>
             <div className="container">
                 <div className="row">

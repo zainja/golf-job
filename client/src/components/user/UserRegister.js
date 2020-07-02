@@ -24,7 +24,7 @@ const UserRegister = (props) => {
         })
     }
     return (
-        <Register onSubmit={onSubmit}/>
+        <Register onSubmit={onSubmit} title="Register Page"/>
     )
 }
 export default UserRegister

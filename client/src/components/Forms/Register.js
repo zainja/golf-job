@@ -22,7 +22,7 @@ const Register = (props) => {
     return (
         <div>
             <div className="container-fluid jumbotron text-center">
-                <h1 className="cm-header-2"> Register Page</h1>
+                <h1 className="cm-header-2">{props.title}</h1>
             </div>
 
             <div className="container">
