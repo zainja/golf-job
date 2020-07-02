@@ -68,6 +68,7 @@ router.post('/login', async (req, res) => {
     }
 })
 
+// shared between user and admin
 router.put('/validate', tokenAuth.registerTokenAuth , async (req, res) => {
     const {email} = req.email
     try {
