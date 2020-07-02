@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken')
 
 module.exports.generateAccessToken = (email) => {
-    return jwt.sign(email, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '1h'})
+    return jwt.sign(email, process.env.ACCESS_TOKEN_SECRET)
 }
 
 module.exports.generateRefreshToken = (email) => {
