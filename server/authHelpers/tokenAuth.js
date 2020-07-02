@@ -11,7 +11,16 @@ module.exports.authToken = (req, res, next) =>{
         next()
     })
 }
-
+module.exports.registerTokenAuth = (req, res, next) => {
+    const authHeader = req.headers['authorization']
+    const token = authHeader && authHeader.split(' ')[1]
+    if (token == null) return res.status(401).send({msgs: "Confirmation email expired"})
+    jwt.verify(token, process.env.REGISTER_TOKEN_SECRET, (err, user) => {
+        if (err) return res.status(403).send({msgs: "Confirmation email expired"})
+        req.email = user.email
+        next()
+    })
+}
 module.exports.resetPasswordTokenAuth = (req, res, next) => {
     const authHeader = req.headers['authorization']
     const token = authHeader && authHeader.split(' ')[1]
