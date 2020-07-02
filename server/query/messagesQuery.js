@@ -16,7 +16,6 @@ module.exports.receiveAllMessages = (user, trainer) => {
                                 WHERE (sender = ? AND receiver = ?) 
                                 OR (receiver = ? AND sender = ?)`,[user, trainer, user, trainer]
         ,(err, result) => {
-            console.log(result)
                 if (err) reject(err)
                 resolve(result)
             })
