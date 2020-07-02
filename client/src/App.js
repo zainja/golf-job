@@ -17,7 +17,7 @@ import AdminLogin from "./components/admin/AdminLogin";
 import AdminRouter from "./components/routers/AdminRouter";
 import AdminMainPage from "./components/admin/AdminMainPage";
 import AdminRegister from "./components/admin/AdminRegister";
-
+import axios from 'axios'
 const App = () => {
     return (
         <ToastProvider>

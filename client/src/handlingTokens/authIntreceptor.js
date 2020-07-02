@@ -1,28 +1,28 @@
 import axios from 'axios';
 
-const axiosInstance = axios.create()
-axiosInstance.interceptors.response.use((response) =>{
+const userAxios = axios.create()
+
+const interceptor = userAxios.interceptors.response.use((response) => {
     return response
-}, (error) =>{
-    const errorResponse = error.response
-    if (isExpiredToken(errorResponse)){
-
+}, (error) => {
+    if (error.response.status !== 401) {
+        return Promise.reject(error)
     }
-} )
+    if (error.config.url === '/token') {
+        localStorage.clear()
+    }
+    axios.interceptors.response.eject(interceptor);
 
-const isExpiredToken = (error) =>{
-    return error.status === 401 || error.status === 403
-}
-const resetTokenAndReattemptRequest = (error) => {
-    const { response: errorResponse } = error;
-    axios.post('/token', {refreshToken: localStorage.getItem("refreshToken")})
-        .then(response => response.data)
-        .then(data => localStorage.setItem("accessToken", data))
-        .catch(err => {
-            console.log(err)
+    return axios.post('/token/', {
+        refreshToken: localStorage.getItem('refresh-token')
+    }).then(response => response.data)
+        .then(data => {
+            localStorage.setItem("access-token", data.accessToken)
+            error.response.config.headers['Authorization'] = 'Bearer ' + localStorage.getItem('access-token');
+            return axios(error.response.config);
+        }).catch(err => {
+            localStorage.clear()
+            return Promise.reject(error);
         })
-    const retryOriginalRequest = new Promise(resolve => {
-
-    })
-}
-export default axiosInstance
+})
+export default userAxios
