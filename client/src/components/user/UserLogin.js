@@ -14,6 +14,7 @@ const UserLogin = (props) => {
             .then(data => {
                 localStorage.setItem("access-token", data.accessToken)
                 localStorage.setItem("refresh-token", data.refreshToken)
+                // localStorage.setItem("email", email)
                 addToast(data.msgs, {appearance: 'success', autoDismiss: true})
                 props.history.push("/")
 
