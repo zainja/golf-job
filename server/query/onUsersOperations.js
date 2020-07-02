@@ -9,10 +9,17 @@ module.exports.getAllUsers = () => {
             })
     })
 }
-
+module.exports.getAllAdmin = () => {
+    new Promise((resolve, reject) => {
+        connection.query(`SELECT * FROM users WHERE isAdmin = TRUE AND email_verified = TRUE`)
+    })
+}
 module.exports.getUserByFirstName = (firstName) => {
     new Promise((resolve, reject) => {
-        connection.query(`SELECT * FROM users WHERE email_verified = TRUE AND first_name = ?`,[firstName],
+        connection.query(`SELECT * FROM users
+                                WHERE email_verified = TRUE 
+                                AND first_name = ?
+                                AND isAdmin = FALSE`,[firstName],
             (err, result) => {
                 if (err) reject(err)
                 resolve(result)
@@ -22,7 +29,10 @@ module.exports.getUserByFirstName = (firstName) => {
 
 module.exports.getUserByLastName = (lastName) => {
     new Promise((resolve, reject) => {
-        connection.query(`SELECT * FROM users WHERE email_verified = TRUE AND last_name = ?`,[lastName],
+        connection.query(`SELECT * FROM users 
+                                WHERE email_verified = TRUE 
+                                AND last_name = ?
+                                AND isAdmin = FALSE`,[lastName],
             (err, result) => {
                 if (err) reject(err)
                 resolve(result)
