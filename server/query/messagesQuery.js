@@ -22,3 +22,20 @@ module.exports.receiveAllMessages = (user, trainer) => {
             })
     })
 }
+
+module.exports.getAllPeopleUserTalkedTo = (user) => {
+    return new Promise((resolve, reject) => {
+        connection.query(`SELECT users.email, users.first_name, users.last_name FROM conversations
+                                LEFT JOIN users
+                                ON users.email = conversations.sender
+                                WHERE receiver = ?
+                                UNION
+                                SELECT users.email, users.first_name, users.last_name FROM conversations
+                                LEFT JOIN users
+                                ON users.email = conversations.receiver
+                                WHERE sender = ?`,[user, user],(err, result) => {
+            if (err) reject(err)
+            resolve(result)
+        })
+    })
+}
