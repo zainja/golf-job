@@ -1,8 +1,8 @@
 import React from "react";
-import NavElement from "../navigation/NavElement";
+import NavElement from "../navigation/NavElement"
+import {withRouter} from 'react-router-dom'
 
-const AdminNavBar = (props) => {
-
+const UserNavBar = (props) => {
     const logout = () =>{
         localStorage.clear()
         props.history.push("/admin/login")
@@ -10,10 +10,9 @@ const AdminNavBar = (props) => {
     return(
         <div>
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
-                <a className="navbar-brand" href="#">Admin Panel</a>
                 <ul className="navbar-nav">
-                    <NavElement to="/classes" title="Classes"/>
-                    <NavElement to="/" title="Users"/>
+                    <NavElement to="/notes" title="Notes"/>
+                    <NavElement to="/conversations" title="Conversations"/>
                     <button className="btn btn-danger my-2 my-lg-0"
                             type="button"
                             onClick={logout}>
@@ -25,4 +24,4 @@ const AdminNavBar = (props) => {
         </div>
     )
 }
-export default AdminNavBar
+export default withRouter(UserNavBar)

@@ -4,6 +4,7 @@ const tokenAuth = require('../authHelpers/tokenAuth')
 const {comparePasswords} = require("../authHelpers/passwordManagement");
 const {hashPassword} = require("../authHelpers/passwordManagement");
 const {generateAdminAccessToken} = require("../authHelpers/generateTokens");
+const onUserOperations = require('../query/onUsersOperations')
 const sendEmail = require('../email/sendEmail')
 const emailTemplate = require('../email/emailTemplate')
 const emailMsgs = require("../email/emailMsgs");
@@ -62,4 +63,28 @@ router.post('/login', async (req, res) => {
     }
 })
 
+router.get('/users/All', tokenAuth.adminAccessToken, async (req, res) => {
+    try{
+        const users = await onUserOperations.getAllUsers()
+        res.send({users: users})
+    }catch (e) {
+        res.send(e)
+    }
+})
+
+router.get('/user/f/:firstName', tokenAuth.adminAccessToken, async (req, res) => {
+    try{
+        const user = await onUserOperations.getUserByFirstName(req.params.firstName)
+    }catch (e) {
+        res.send(e)
+    }
+})
+
+router.get('/user/l/:lastName',tokenAuth.adminAccessToken, async (req, res) => {
+    try{
+        const user = await onUserOperations.getUserByLastName(req.params.lastName)
+    }catch (e) {
+        res.send(e)
+    }
+})
 module.exports = router
