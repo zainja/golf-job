@@ -45,7 +45,7 @@ router.post('/login', async (req, res) => {
             res.status(403)
             const random = crypto.randomBytes(64).toString('hex')
             await sendEmail(email, emailTemplate.confirm(random))
-            res.json({
+            res.send({
                 msgs: emailMsgs.resend
             })
         }
