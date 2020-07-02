@@ -1,10 +1,10 @@
 import React, {useState} from "react"
 import axios from 'axios'
-import useInterval from '../../hooks/useInterval'
+import {useInterval} from '../../hooks/useInterval'
 const Conversation = (props) => {
     const [messages, setMessages] = useState("")
     useInterval(() => {
-        axios.get('/messages/get', {
+        axios.post('/messages/userGetMessages/',{user: props.user}, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('access-token')}`
             }
