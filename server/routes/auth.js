@@ -49,7 +49,7 @@ router.post('/login', async (req, res) => {
             })
         }
         else if ( await comparePasswords(password, result[0].password)){
-            emailObj = {
+            const emailObj = {
                 email: email
             }
             const accessToken = generateAccessToken(emailObj)
