@@ -10,6 +10,7 @@ const emailTemplate = require('../email/emailTemplate')
 const emailMsgs = require("../email/emailMsgs");
 const user = require("../query/user");
 const crypto = require('crypto')
+const {generateAccessToken} = require("../authHelpers/generateTokens");
 const {generateRegisterToken} = require("../authHelpers/generateTokens");
 const router = express.Router()
 
@@ -18,10 +19,7 @@ router.post("/register", async (req, res) => {
     try {
         const hashedPassword = await hashPassword(password, 10)
         await user.registerAsAdmin(email, firstName, lastName, hashedPassword, phoneNumber)
-        const emailObj = {
-            email: email
-        }
-        const registerToken = generateRegisterToken(emailObj)
+        const registerToken = generateRegisterToken(email)
         const random = crypto.randomBytes(64).toString('hex')
         await sendEmail(email, emailTemplate.confirm(random))
          res.send({
@@ -51,8 +49,8 @@ router.post('/login', async (req, res) => {
             })
         }
         else if ( await comparePasswords(password, result[0].password)){
-            const token = await generateAdminAccessToken(email)
-            res.send({adminAccessToken: token, msgs: "user login successfully"})
+            const token = await generateAccessToken(email, true)
+            res.send({accessToken: token, msgs: "user login successfully"})
         }else {
             res.status(401)
             res.send({msgs: "Incorrect email or password"})
@@ -63,7 +61,11 @@ router.post('/login', async (req, res) => {
     }
 })
 
-router.get('/users/All', tokenAuth.adminAccessToken, async (req, res) => {
+router.get('/users/All', tokenAuth.authToken, async (req, res) => {
+    if (!req.isAdmin){
+        res.code(403).send({msgs: "access forbidden"})
+        return
+    }
     try{
         const users = await onUserOperations.getAllUsers()
         res.send({users: users})
@@ -72,7 +74,11 @@ router.get('/users/All', tokenAuth.adminAccessToken, async (req, res) => {
     }
 })
 
-router.get('/user/f/:firstName', tokenAuth.adminAccessToken, async (req, res) => {
+router.get('/user/f/:firstName', tokenAuth.authToken, async (req, res) => {
+    if (!req.isAdmin){
+        res.code(403).send({msgs: "access forbidden"})
+        return
+    }
     try{
         const user = await onUserOperations.getUserByFirstName(req.params.firstName)
     }catch (e) {
@@ -80,7 +86,11 @@ router.get('/user/f/:firstName', tokenAuth.adminAccessToken, async (req, res) =>
     }
 })
 
-router.get('/user/l/:lastName',tokenAuth.adminAccessToken, async (req, res) => {
+router.get('/user/l/:lastName',tokenAuth.authToken, async (req, res) => {
+    if (!req.isAdmin){
+        res.code(403).send({msgs: "access forbidden"})
+        return
+    }
     try{
         const user = await onUserOperations.getUserByLastName(req.params.lastName)
     }catch (e) {
