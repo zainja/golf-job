@@ -7,7 +7,8 @@ mysqlInfo = {
     port: process.env.port,
     user: process.env.user,
     password: process.env.password,
-    database: process.env.database
+    database: process.env.database,
+    multipleStatements: true
 }
 // connection set up
 const connection = mysql.createConnection(mysqlInfo)
