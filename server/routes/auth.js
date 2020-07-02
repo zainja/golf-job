@@ -72,7 +72,7 @@ router.post('/login', async (req, res) => {
 router.put('/validate', tokenAuth.registerTokenAuth , async (req, res) => {
     const {email} = req.email
     try {
-        await register.validateEmail(email)
+        await user.validateEmail(email)
         res.status(200)
         res.send({success: "Verified"})
     }catch (e) {

@@ -15,7 +15,8 @@ const router = express.Router()
 router.post("/register", async (req, res) => {
     const {email, firstName, lastName, password, phoneNumber} =req.body
     try {
-        await user.registerAsAdmin(email, firstName, lastName, password, phoneNumber)
+        const hashedPassword = await hashPassword(password, 10)
+        await user.registerAsAdmin(email, firstName, lastName, hashedPassword, phoneNumber)
         const emailObj = {
             email: email
         }
