@@ -37,7 +37,8 @@ module.exports.validateEmail = (email) => {
 
 module.exports.login = (email) => {
     return new Promise((resolve, reject) => {
-        connection.query("SELECT email, password, email_verified FROM users WHERE email=? AND isAdmin=FALSE",
+        connection.query(`SELECT *
+                                FROM users WHERE email=? AND isAdmin=FALSE`,
             [email],(err, result) => {
             console.log(result)
             if (err){
@@ -52,7 +53,7 @@ module.exports.login = (email) => {
 
 module.exports.loginAdmin = (email) => {
     return new Promise((resolve, reject) => {
-        connection.query("SELECT email, password, email_verified FROM users WHERE email=? AND isAdmin=TRUE",
+        connection.query("SELECT * FROM users WHERE email=? AND isAdmin=TRUE",
             [email],(err, result) => {
             console.log(result)
             if (err){

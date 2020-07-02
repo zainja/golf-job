@@ -48,7 +48,12 @@ router.post('/login', async (req, res) => {
         }
         else if ( await comparePasswords(password, result[0].password)){
             const token = await generateAccessToken(email, true)
-            res.send({accessToken: token, msgs: "user login successfully"})
+            res.send({accessToken: token,
+                firstName: result[0].first_name,
+                lastName: result[0].last_name,
+                phoneNumber: result[0].phone_number,
+                isAdmin: true,
+                msgs: "user login successfully"})
         }else {
             res.status(401)
             res.send({msgs: "Incorrect email or password"})

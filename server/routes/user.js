@@ -53,6 +53,11 @@ router.post('/login', async (req, res) => {
             const accessToken = generateAccessToken(email, false)
             await res.json({
                 accessToken: accessToken,
+                msgs: "login successful",
+                isAdmin: false,
+                firstName: result[0].first_name,
+                lastName: result[0].last_name,
+                phoneNumber: result[0].phone_number,
             })
         }else {
             res.status(401)

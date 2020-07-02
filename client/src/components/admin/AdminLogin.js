@@ -9,7 +9,8 @@ const AdminLogin = (props) => {
         axios.post("/admin/login",{email: email, password: password})
             .then(response => response.data)
             .then(data => {
-                localStorage.setItem("admin-token", data.adminAccessToken)
+                localStorage.setItem("access-token", data.adminAccessToken)
+                localStorage.setItem("email",)
                 addToast(data.msgs, {appearance: 'success', autoDismiss: true})
                 props.history.push("/admin/main")
             })
