@@ -2,7 +2,7 @@ const connection = require('../connection')
 
 module.exports.getAllUsers = () => {
     new Promise((resolve, reject) => {
-        connection.query(`SELECT * FROM users WHERE email_verified = TRUE`,[],
+        connection.query(`SELECT * FROM users WHERE email_verified = TRUE AND isAdmin = FALSE`,[],
             (err, result) => {
                 if (err) reject(err)
                 resolve(result)
