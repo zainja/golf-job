@@ -1,5 +1,6 @@
 import React from "react";
 import {withRouter} from 'react-router-dom';
+import UserNavBar from "./UserNavBar";
 const Landing = (props) => {
     console.log(props)
     const logout = ()=> {
@@ -9,9 +10,8 @@ const Landing = (props) => {
     }
     return(
         <div>
+            <UserNavBar/>
             <h1>Main Page</h1>
-            <button className="btn btn-primary" onClick={logout}> Logout </button>
-
         </div>
     )
 }

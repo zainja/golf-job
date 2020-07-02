@@ -44,8 +44,10 @@ router.post('/login', async (req, res) => {
             res.status(403)
             const random = crypto.randomBytes(64).toString('hex')
             await sendEmail(email, emailTemplate.confirm(random))
+            const registerToken = generateRegisterToken({email: email})
             res.json({
-                error: emailMsgs.resend
+                error: emailMsgs.resend,
+                registerToken: registerToken
             })
         }
         else if ( await comparePasswords(password, result[0].password)){
