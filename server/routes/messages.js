@@ -45,5 +45,4 @@ router.post('/adminGetMessages',tokenAuth.adminAccessToken, async (req, res) => 
         res.send(e)
     }
 })
-
 module.exports = router
