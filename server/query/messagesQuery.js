@@ -13,9 +13,10 @@ module.exports.sendMessage = (sender, receiver, message) => {
 module.exports.receiveAllMessages = (user, trainer) => {
     return new Promise((resolve, reject) => {
         connection.query(`SELECT * FROM conversations
-                                WHERE sender = ? AND receiver = ? 
-                                OR sender = ? AND receiver = ?`,[user, trainer, trainer, user]
+                                WHERE (sender = ? AND receiver = ?) 
+                                OR (receiver = ? AND sender = ?)`,[user, trainer, user, trainer]
         ,(err, result) => {
+            console.log(result)
                 if (err) reject(err)
                 resolve(result)
             })
