@@ -1,8 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const bcrypt = require('bcrypt')
-const register = require("../query/register")
-const login = require('../query/login')
+const user = require("../query/user")
 const {hashPassword} = require("../authHelpers/passwordManagement");
 const {comparePasswords} = require("../authHelpers/passwordManagement");
 const tokenAuth = require('../authHelpers/tokenAuth')
@@ -19,7 +17,7 @@ router.post('/register', async (req, res) => {
     let {email, firstName, lastName, password, phoneNumber} = req.body
     try{
         const hashedPassword = await hashPassword(password, 10)
-        await register.register(email, firstName, lastName, hashedPassword, phoneNumber)
+        await user.register(email, firstName, lastName, hashedPassword, phoneNumber)
         const emailObj = {email: email}
         const registerToken = generateRegisterToken(emailObj)
         const random = crypto.randomBytes(64).toString('hex')
@@ -37,7 +35,7 @@ router.post('/register', async (req, res) => {
 router.post('/login', async (req, res) => {
     let {email, password} = req.body
     try {
-        const result = await login.login(email)
+        const result = await user.login(email)
         if (result.length === 0){
             res.status(404)
             res.send({error: "User Not found"})
@@ -105,7 +103,7 @@ router.post('/reset-password', tokenAuth.resetPasswordTokenAuth, async (req, res
     console.log(password)
     try {
         const newPassword = await hashPassword(password,10)
-        await login.resetPassword(email, newPassword)
+        await user.resetPassword(email, newPassword)
         res.send({"success": "Password is set"})
     }catch (e) {
         res.sendStatus(500)
