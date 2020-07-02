@@ -1,59 +1,21 @@
-import React,{useState, useEffect} from "react";
-import axios from 'axios'
-
+import React, {useState} from "react";
+import axios from "axios";
+import {useToasts } from 'react-toast-notifications'
 const Register = (props) => {
+    const {addToast} = useToasts()
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [confirmPassword, setConfirmPassword] = useState("")
     const [firstName, setFirstName] = useState("")
     const [lastName, setLastName] = useState("")
     const [phone, setPhone] = useState("")
-    let redirectDestination = ""
 
-    const handleChange = (e) => {
-        const {id, value} = e.target
-        switch (id) {
-            case "email": setEmail(value)
-                break
-            case "password": setPassword(value)
-                break
-            case "confirmPassword":
-                setConfirmPassword(value)
-                if (password !== value)
-                    document.getElementById("belowConfirm").innerText = "passwords don't match"
-                else {
-                    document.getElementById("belowConfirm").innerText = ""
-                }
-                break
-            case "firstName": setFirstName(value)
-                break
-            case "lastName": setLastName(value)
-                break
-            case "phoneNumber": setPhone(value)
-        }
-    }
     const onSubmit = (e) =>{
         e.preventDefault()
-
-        if (password === confirmPassword){
-            const registerObj =
-                {
-                    email: email,
-                    firstName: firstName,
-                    lastName: lastName,
-                    password: password,
-                    phoneNumber: phone
-                }
-            axios.post(`/auth/register`, registerObj)
-                .then(res => res.data)
-                .then(data => {
-                    localStorage.setItem("register-token", data.registerToken)
-                    props.history.push("/confirm-sent", data.msgs)
-            }).catch(err => {
-                document.getElementById("errors").innerText = err.response.data.msgs
-            })
+        if (password !== confirmPassword){
+            addToast("passwords don't match", {appearance: "error", PlacementType: 'top-center'})
         }else {
-            document.getElementById("errors").innerText = "Passwords don't match"
+            props.onSubmit(email, firstName, lastName, phone, password)
         }
     }
     return(
@@ -69,7 +31,7 @@ const Register = (props) => {
                            className="form-control"
                            id="email"
                            value={email}
-                           onChange={handleChange}
+                           onChange={event => setEmail(event.target.value)}
                            aria-describedby="emailHelp"
                            placeholder="Enter email"
                            required
@@ -82,7 +44,7 @@ const Register = (props) => {
                         className="form-control"
                         id="firstName"
                         value={firstName}
-                        onChange={handleChange}
+                        onChange={event => setFirstName(event.target.value)}
                         placeholder="First Name"
                         required
                     />
@@ -94,7 +56,7 @@ const Register = (props) => {
                         className="form-control"
                         id="lastName"
                         value={lastName}
-                        onChange={handleChange}
+                        onChange={event => setLastName(event.target.value)}
                         placeholder="Last Name"
                         required
                     />
@@ -105,7 +67,7 @@ const Register = (props) => {
                            className="form-control"
                            id="phoneNumber"
                            value={phone}
-                           onChange={handleChange}
+                           onChange={event => setPhone(event.target.value)}
                            placeholder="02932-2929323"
                            required
                     />
@@ -116,7 +78,7 @@ const Register = (props) => {
                            className="form-control"
                            id="password"
                            value={password}
-                           onChange={handleChange}
+                           onChange={event => setPassword(event.target.value)}
                            required
                            placeholder="Password"/>
                 </div>
@@ -127,7 +89,7 @@ const Register = (props) => {
                            className="form-control"
                            id="confirmPassword"
                            value={confirmPassword}
-                           onChange={handleChange}
+                           onChange={event => setConfirmPassword(event.target.value)}
                            required
                            placeholder="Repeat Password"/>
                    <small id="belowConfirm"/>

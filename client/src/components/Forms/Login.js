@@ -15,7 +15,6 @@ const Login = (props) => {
             </div>
 
             <form className="container" onSubmit={onSubmit}>
-                <h3 className="alert-danger">{errorMessage}</h3>
                 <div className="form-group">
                     <label htmlFor="email">Email address</label>
                     <input type="email"
@@ -49,3 +48,4 @@ const Login = (props) => {
         </div>
     )
 }
+export default Login
