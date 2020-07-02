@@ -35,25 +35,24 @@ module.exports.validateEmail = (email) => {
     }))
 }
 
-module.exports.checkAccount = (email) => {
+module.exports.login = (email) => {
     return new Promise((resolve, reject) => {
-        connection.query("SELECT email_verified FROM users WHERE email = ?", [email],(err, result) =>{
-            console.log(result[0].email_verified)
-            if (err) reject(err)
-            if (result.length === 0){
-                resolve(-1)
-            }else if (result[0].email_verified === 1){
-                resolve(1)
-            }else(
-                resolve(0)
-            )
+        connection.query("SELECT email, password, email_verified FROM users WHERE email=? AND isAdmin=FALSE",
+            [email],(err, result) => {
+            console.log(result)
+            if (err){
+                reject(err)
+            }
+            else {
+                resolve(result)
+            }
         })
     })
 }
 
-module.exports.login = (email) => {
+module.exports.loginAdmin = (email) => {
     return new Promise((resolve, reject) => {
-        connection.query("SELECT email, password, email_verified FROM users WHERE email=?",
+        connection.query("SELECT email, password, email_verified FROM users WHERE email=? AND isAdmin=TRUE",
             [email],(err, result) => {
             console.log(result)
             if (err){

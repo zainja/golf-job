@@ -35,7 +35,7 @@ router.post("/register", async (req, res) => {
 router.post('/login', async (req, res) => {
         let {email, password} = req.body
     try {
-        const result = await user.login(email)
+        const result = await user.loginAdmin(email)
         if (result.length === 0){
             res.status(404)
             res.send({error: "User Not found"})

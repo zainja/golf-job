@@ -1,41 +1,12 @@
-import React, {useState} from "react";
-import axios from 'axios'
 import {Link} from "react-router-dom";
-import {useToasts } from 'react-toast-notifications'
+import React,{useState} from "react";
 
 const Login = (props) => {
-    const { addToast } = useToasts()
-
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-    const [errorMessage, setErrorMessage] = useState("")
-    const handleChange = (e) => {
-        const {id, value} = e.target
-        if (id === "email") {
-            setEmail(value)
-        } else if (id === "password") {
-            setPassword(value)
-        }
-    }
     const onSubmit = (e) => {
         e.preventDefault()
-        axios.post('/auth/login', {
-            email: email,
-            password: password
-        }).then(r => r.data)
-            .then(data => {
-                localStorage.setItem("access-token", data.accessToken)
-                localStorage.setItem("refresh-token", data.refreshToken)
-                // setErrorMessage("")
-                props.history.push("/")
-
-            })
-            .catch(err =>{
-                 console.log(err.response)
-                addToast(err.response.data.error,{appearance: 'error'})
-            }
-            )
-
+        props.onSubmit(email, password)
     }
     return (
         <div>
@@ -51,7 +22,7 @@ const Login = (props) => {
                            className="form-control"
                            id="email"
                            value={email}
-                           onChange={handleChange}
+                           onChange={event => setEmail(event.target.value)}
                            aria-describedby="emailHelp"
                            required
                            placeholder="Enter email"/>
@@ -62,7 +33,7 @@ const Login = (props) => {
                     <input
                         type="password"
                         value={password}
-                        onChange={handleChange}
+                        onChange={event => setPassword(event.target.value)}
                         className="form-control"
                         id="password"
                         required
@@ -78,4 +49,3 @@ const Login = (props) => {
         </div>
     )
 }
-export default Login
