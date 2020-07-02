@@ -90,7 +90,6 @@ router.post('/request-reset-password', async (req, res) => {
         const resetPasswordToken = generateResetPasswordToken(emailObj)
         const random = crypto.randomBytes(64).toString('hex')
         await sendEmail(email, resetPasswordTemplate.reset(random))
-        console.log(resetPasswordToken)
         res.send({resetPasswordToken: resetPasswordToken})
     }catch (e) {
         console.log(e)
