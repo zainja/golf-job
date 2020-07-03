@@ -19,7 +19,7 @@ const ConversationCard = (props) => {
                     message = message.substring(0, 50) + "..."
                 }
                 setLastMessage(message)
-                setTime(new Date(data.message[0].time))
+                setTime(new Intl.DateTimeFormat('en-GB').format(new Date(data.message[0].time)))
                 setIsUser(data.isUser)
             }).catch(err => setLastMessage(err.response.data.msgs))
 
@@ -32,7 +32,7 @@ const ConversationCard = (props) => {
                     <h5 className="card-title">{first_name + last_name}</h5>
                     <h6 className="card-subtitle mb-2 text-muted">{sender + ": " + lastMessage}</h6>
                     <h6 className="card-subtitle mb-2 text-muted">
-                        {`${time.getDate()}/${time.getMonth()+1} ${time.getHours()}:${time.getMinutes()}`}
+                        {`in: ${time}`}
                     </h6>
                 </div>
             </div>
