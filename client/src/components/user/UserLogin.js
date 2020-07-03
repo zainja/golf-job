@@ -13,7 +13,10 @@ const UserLogin = (props) => {
         }).then(r => r.data)
             .then(data => {
                 localStorage.setItem("access-token", data.accessToken)
-                localStorage.setItem("refresh-token", data.refreshToken)
+                localStorage.setItem("first-name", data.firstName)
+                localStorage.setItem("last-name", data.lastName)
+                localStorage.setItem("phone-number", data.phoneNumber)
+                localStorage.setItem("is-admin", data.isAdmin)
                 addToast(data.msgs, {appearance: 'success', autoDismiss: true})
                 props.history.push("/")
 
