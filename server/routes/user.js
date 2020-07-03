@@ -9,6 +9,7 @@ const emailTemplate = require('../email/emailTemplate')
 const resetPasswordTemplate = require('../email/resetPasswordTemplate')
 const crypto = require('crypto')
 const emailMsgs = require('../email/emailMsgs')
+const {getAllAdmin} = require("../query/onUsersOperations");
 const {generateResetPasswordToken,
     generateRegisterToken,
     generateRefreshToken,
@@ -107,6 +108,15 @@ router.post('/reset-password', tokenAuth.resetPasswordTokenAuth, async (req, res
         res.send({"success": "Password is set"})
     }catch (e) {
         res.sendStatus(500)
+    }
+})
+
+router.get('/AllMentors', tokenAuth.authToken, async (req, res) => {
+    try{
+        const admins = await getAllAdmin()
+        res.send({mentors: admins})
+    }catch (e) {
+        res.send({msgs: "cannot get mentors"})
     }
 })
 module.exports = router
