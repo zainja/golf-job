@@ -18,6 +18,7 @@ import AdminRouter from "./components/routers/AdminRouter";
 import AdminRegister from "./components/admin/AdminRegister";
 import axios from 'axios'
 import Conversation from "./components/Conversation/Coversation";
+import ConversationTab from "./components/Conversation/CoversationsTab";
 const App = () => {
     return (
         <ToastProvider>
@@ -27,6 +28,7 @@ const App = () => {
                     <PrivateRouter exact path="/" component={Landing}/>
                     <PrivateRouter exact path="/conversation/:email" component={Conversation}/>
                     <RegisterRouter exact path="/confirm-sent" component={ConfirmationMessageSent}/>
+                    <PrivateRouter exact path="/conversations" component={ConversationTab}/>
                     <RegisterRouter exact path="/confirm/:id" component={ConfirmEmail}/>
                     <ResetPasswordRouter exact path="/reset/:id" component={ResetPasswordConfirmed}/>
                     <Route exact path="/forgot-password" component={ResetPasswordRequest}/>

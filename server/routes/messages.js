@@ -38,7 +38,7 @@ router.get('/allUsersTalkedTo', tokenAuth.authToken, async (req, res) => {
     }
 })
 
-router.get('/lastMessage', tokenAuth.authToken, async (req, res) => {
+router.post('/lastMessage', tokenAuth.authToken, async (req, res) => {
     const email = req.email
     const otherUser = req.body.otherUser
     try {
@@ -47,7 +47,7 @@ router.get('/lastMessage', tokenAuth.authToken, async (req, res) => {
             message: message, isUser: message[0].sender === email
         })
     }catch (e) {
-
+        res.send({msgs: "errorr"})
     }
 })
 module.exports = router
