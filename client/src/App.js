@@ -15,7 +15,6 @@ import ResetPasswordConfirmed from "./components/passwordOperations/ResetPasswor
 import ResetPasswordExpired from "./components/passwordOperations/ResetPasswordExpired";
 import AdminLogin from "./components/admin/AdminLogin";
 import AdminRouter from "./components/routers/AdminRouter";
-import AdminMainPage from "./components/admin/AdminMainPage";
 import AdminRegister from "./components/admin/AdminRegister";
 import axios from 'axios'
 const App = () => {
@@ -28,7 +27,6 @@ const App = () => {
                     <RegisterRouter exact path="/confirm-sent" component={ConfirmationMessageSent}/>
                     <RegisterRouter exact path="/confirm/:id" component={ConfirmEmail}/>
                     <ResetPasswordRouter exact path="/reset/:id" component={ResetPasswordConfirmed}/>
-                    <AdminRouter exact path="/admin/main" component={AdminMainPage}/>
                     <Route exact path="/forgot-password" component={ResetPasswordRequest}/>
                     <Route exact path="/rejected-reset-password" component={ResetPasswordExpired}/>
                     <Route exact path="/login" component={UserLogin}/>

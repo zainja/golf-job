@@ -6,7 +6,7 @@ const AdminRouter = ({component: Component, ...rest}) => {
         <Route
             {...rest}
             render={props =>
-                localStorage.getItem('admin-token')  ? <Component />:
+                localStorage.getItem('is-admin')  ? <Component />:
                     <Redirect to="/login"/>
             }
         />
