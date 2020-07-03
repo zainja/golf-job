@@ -114,8 +114,10 @@ router.post('/reset-password', tokenAuth.resetPasswordTokenAuth, async (req, res
 router.get('/AllMentors', tokenAuth.authToken, async (req, res) => {
     try{
         const admins = await getAllAdmin()
+        console.log(admins)
         res.send({mentors: admins})
     }catch (e) {
+        console.log(e)
         res.send({msgs: "cannot get mentors"})
     }
 })

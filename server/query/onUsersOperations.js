@@ -1,7 +1,7 @@
 const connection = require('../connection')
 
 module.exports.getAllUsers = () => {
-    new Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
         connection.query(`SELECT * FROM users WHERE email_verified = TRUE AND isAdmin = FALSE`,[],
             (err, result) => {
                 if (err) reject(err)
@@ -10,12 +10,16 @@ module.exports.getAllUsers = () => {
     })
 }
 module.exports.getAllAdmin = () => {
-    new Promise((resolve, reject) => {
-        connection.query(`SELECT * FROM users WHERE isAdmin = TRUE AND email_verified = TRUE`)
+    return new Promise((resolve, reject) => {
+        connection.query(`SELECT * FROM users WHERE isAdmin = TRUE AND email_verified = TRUE`,[],
+            (err, result) => {
+                if (err) reject(err)
+                resolve(result)
+            })
     })
 }
 module.exports.getUserByFirstName = (firstName) => {
-    new Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
         connection.query(`SELECT * FROM users
                                 WHERE email_verified = TRUE 
                                 AND first_name = ?
@@ -28,7 +32,7 @@ module.exports.getUserByFirstName = (firstName) => {
 }
 
 module.exports.getUserByLastName = (lastName) => {
-    new Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
         connection.query(`SELECT * FROM users 
                                 WHERE email_verified = TRUE 
                                 AND last_name = ?

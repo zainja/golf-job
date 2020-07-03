@@ -21,6 +21,7 @@ router.post('/getMessages',tokenAuth.authToken, async (req, res) => {
         const messages = await messagesQuery.receiveAllMessages(email, user)
         res.send({messages: messages})
     }catch (e) {
+        console.log(e)
         res.send(e)
     }
 })
