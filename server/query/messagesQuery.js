@@ -39,3 +39,16 @@ module.exports.getAllPeopleUserTalkedTo = (user) => {
         })
     })
 }
+
+module.exports.getLatestMessage = (user, otherUser) => {
+ return new Promise((resolve, reject) => {
+     connection.query(`SELECT message,time, sender 
+                            FROM conversations 
+                            WHERE (sender = ? AND receiver = ? ) 
+                            OR (receiver = ? AND sender='jaffalzainalden@gmail.com') 
+                            ORDER BY time DESC LIMIT 1`)
+ },[user, otherUser, user, otherUser],(err, result) => {
+     if (err) reject(err)
+     resolve(result)
+ })
+}
