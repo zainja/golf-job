@@ -3,7 +3,6 @@ import axios from 'axios'
 import {withRouter} from 'react-router-dom'
 import {useInterval} from '../../hooks/useInterval'
 import MessageBubble from "./MessageBubble";
-
 const Conversation = (props) => {
     const [receivedMessages, setReceivedMessages] = useState([])
     const [message, setMessage] = useState("")
@@ -36,10 +35,8 @@ const Conversation = (props) => {
                                                                       time={text.time}/>)
     return (
         <div style={{height: '100%'}}>
-            <div className="container overflow-hidden" style={{maxHeight: '80%'}}>
-                {messagesArray}
-                <div className="row">
-                </div>
+            <div className="container">
+                    {messagesArray}
             </div>
             <div className="container fixed-bottom form-group w-100">
                 <div className="row">
