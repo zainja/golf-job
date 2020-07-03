@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {withRouter} from "react-router-dom"
 import axios from 'axios'
 import ConversationCard from "../Cards/CoversationCard";
-import UserNavBar from "../user/UserNavBar";
+import UserNavBar from "../navigation/NavigationBar";
 
 const ConversationTab = () => {
     const [contacts, setContacts] = useState([])

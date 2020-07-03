@@ -1,7 +1,7 @@
 import React from "react";
 import {ToastProvider, useToasts} from 'react-toast-notifications'
 import {BrowserRouter, Route, Redirect, Switch} from 'react-router-dom'
-import Landing from "./components/user/Landing";
+import Landing from "./Landing";
 import UserLogin from "./components/user/UserLogin";
 import PrivateRouter from "./components/routers/PrivateRouter";
 import RegisterRouter from "./components/routers/RegisterRouter";

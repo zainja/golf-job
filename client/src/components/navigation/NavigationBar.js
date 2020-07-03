@@ -1,8 +1,8 @@
 import React from "react";
-import NavElement from "../navigation/NavElement"
+import NavElement from "./NavElement"
 import {withRouter} from 'react-router-dom'
 
-const UserNavBar = (props) => {
+const NavigationBar = (props) => {
     const logout = () =>{
         localStorage.clear()
         props.history.push("/login")
@@ -24,4 +24,4 @@ const UserNavBar = (props) => {
         </div>
     )
 }
-export default withRouter(UserNavBar)
+export default withRouter(NavigationBar)

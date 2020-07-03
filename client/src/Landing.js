@@ -1,9 +1,9 @@
 import React,{useEffect, useState} from "react";
 import {withRouter} from 'react-router-dom';
-import UserNavBar from "./UserNavBar";
+import UserNavBar from "./components/navigation/NavigationBar";
 import axios from 'axios';
-import Conversation from "../Conversation/Coversation";
-import ContactCard from "../Cards/ContactCard";
+import Conversation from "./components/Conversation/Coversation";
+import ContactCard from "./components/Cards/ContactCard";
 const Landing = (props) => {
     console.log(props)
     const [trainers, setTrainers] = useState([])
