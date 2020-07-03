@@ -4,16 +4,17 @@ const MessageBubble = (props) => {
     const dateObj = new Date(props.time)
     const today = new Date()
     let time = dateObj.getHours() + ":"  + dateObj.getMinutes()
-    const style = props.isUser ? "order-last bg-primary text-right" : "order-first bg-light text-left"
-    const textColor = props.isUser ? "text-white" : "text-black"
+    const style = props.isUser ? "order-last bg-primary" : "order-first bg-light"
+    const textColor = props.isUser ? "text-white float-right" : "text-black float-left"
+    const timeStyle = props.isUser ? "float-left text-white-50" : "float-right text-black-50"
 
     return (
 
         <div className="row mt-2">
-            <div className="col-md-10"/>
-            <div className={`col-md-2 ${style} pt-2 rounded`}>
+            <div className="col-7"/>
+            <div className={`col ${style} pt-2 rounded`}>
                 <h6 className={textColor}>{props.text}</h6>
-                <small className={textColor}>{time}</small>
+                <small className={timeStyle}>{time}</small>
             </div>
         </div>
     )
