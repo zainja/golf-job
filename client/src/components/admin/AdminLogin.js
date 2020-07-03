@@ -9,7 +9,9 @@ const AdminLogin = (props) => {
         axios.post("/admin/login",{email: email, password: password})
             .then(response => response.data)
             .then(data => {
-                localStorage.setItem("access-token", data.adminAccessToken)
+                console.log(data)
+                localStorage.setItem("access-token", data.accessToken)
+                localStorage.setItem("email", email)
                 localStorage.setItem("first-name", data.firstName)
                 localStorage.setItem("last-name", data.lastName)
                 localStorage.setItem("phone-number", data.phoneNumber)

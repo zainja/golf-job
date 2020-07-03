@@ -17,6 +17,7 @@ import AdminLogin from "./components/admin/AdminLogin";
 import AdminRouter from "./components/routers/AdminRouter";
 import AdminRegister from "./components/admin/AdminRegister";
 import axios from 'axios'
+import Conversation from "./components/Conversation/Coversation";
 const App = () => {
     return (
         <ToastProvider>
@@ -24,6 +25,7 @@ const App = () => {
             <BrowserRouter>
                 <Switch>
                     <PrivateRouter exact path="/" component={Landing}/>
+                    <PrivateRouter exact path="/conversation/:email" component={Conversation}/>
                     <RegisterRouter exact path="/confirm-sent" component={ConfirmationMessageSent}/>
                     <RegisterRouter exact path="/confirm/:id" component={ConfirmEmail}/>
                     <ResetPasswordRouter exact path="/reset/:id" component={ResetPasswordConfirmed}/>

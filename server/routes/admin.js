@@ -48,6 +48,7 @@ router.post('/login', async (req, res) => {
         }
         else if ( await comparePasswords(password, result[0].password)){
             const token = await generateAccessToken(email, true)
+            console.log(token)
             res.send({accessToken: token,
                 firstName: result[0].first_name,
                 lastName: result[0].last_name,
