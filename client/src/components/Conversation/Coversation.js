@@ -35,23 +35,32 @@ const Conversation = (props) => {
                                                                       isUser={localStorage.getItem("email") === text.sender}
                                                                       time={text.time}/>)
     return (
-        <div style={{height: '100%'}}>
-            <div className="container-fluid fixed-top bg-dark">
-                <div className="container text-center">
-                    <h3 className="text-white">Conversation</h3>
+        <div className="container-fluid">
+            <div className="row mb-2" style={{height: "2rem"}}>
+                <div className="container-fluid bg-dark">
+                    <div className="container text-center">
+                        <h3 className="text-white">Conversation</h3>
+                    </div>
                 </div>
             </div>
-            <div className="container flex-grow-1">
-                {messagesArray}
+            <div className="row">
+                <div className="container overflow-auto"
+                     style={{maxHeight: `calc(100vh - 6rem)`, "overflow-y": "scroll"}}>
+                    {messagesArray}
+                </div>
             </div>
-            <div className="container-fluid fixed-bottom bg-dark mt-2">
+            <div className="row mt-2">
                 <div className="container">
                     <div className="row">
-                        <div className="col-md-2">
-                            <button className="btn btn-primary" onClick={send}>Send</button>
+                        <div className="col-10">
+                            <div className="form-group">
+                                <input className="w-100" onChange={event => setMessage(event.target.value)}
+                                       maxLength={250}
+                                       required/>
+                            </div>
                         </div>
-                        <div className="col-md-10">
-                            <input onChange={event => setMessage(event.target.value)} maxLength={250} required/>
+                        <div className="col-2" style={{height: "2rem"}}>
+                            <button className="btn btn-primary" onClick={send}>Send</button>
                         </div>
                     </div>
                 </div>

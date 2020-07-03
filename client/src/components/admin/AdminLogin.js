@@ -6,7 +6,7 @@ import Login from "../Forms/Login";
 const AdminLogin = (props) => {
     const {addToast} = useToasts()
     const onSubmit = (email, password) => {
-        axios.post("/admin/login",{email: email, password: password})
+        axios.post("/admin/login", {email: email, password: password})
             .then(response => response.data)
             .then(data => {
                 console.log(data)
@@ -21,6 +21,11 @@ const AdminLogin = (props) => {
             })
             .catch(err => addToast(err.response.data.msgs, {appearance: 'error', autoDismiss: true}))
     }
+    useEffect(() => {
+        if (localStorage.getItem("access-token") !== null) {
+            props.history.push("/")
+        }
+    }, [])
 
     return (
         <Login onSubmit={onSubmit} title="Admin Login Page"/>

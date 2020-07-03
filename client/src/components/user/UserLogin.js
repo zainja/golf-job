@@ -1,10 +1,9 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import axios from 'axios'
 import {useToasts} from 'react-toast-notifications'
 import Login from "../Forms/Login";
 
 const UserLogin = (props) => {
-
     const { addToast } = useToasts()
     const onSubmit = (email, password) => {
         axios.post('/auth/login', {
@@ -29,6 +28,11 @@ const UserLogin = (props) => {
             )
 
     }
+    useEffect(() =>{
+        if (localStorage.getItem("access-token") !== null){
+            props.history.push("/")
+        }
+    },[])
 
     return(
         <Login onSubmit={onSubmit} title="Login Page"/>
