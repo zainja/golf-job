@@ -3,7 +3,7 @@ import axios from 'axios'
 import {withRouter} from 'react-router-dom'
 import {useInterval} from '../../hooks/useInterval'
 import MessageBubble from "./MessageBubble";
-
+import Send from "../../resources/Send.svg"
 const Conversation = (props) => {
     const [receivedMessages, setReceivedMessages] = useState([])
     const [message, setMessage] = useState("")
@@ -45,7 +45,7 @@ const Conversation = (props) => {
             </div>
             <div className="row">
                 <div className="container overflow-auto"
-                     style={{maxHeight: `calc(100vh - 6rem)`, "overflow-y": "scroll"}}>
+                     style={{maxHeight: `calc(100vh - 6rem)`, "overflow-y": "hidden"}}>
                     {messagesArray}
                 </div>
             </div>

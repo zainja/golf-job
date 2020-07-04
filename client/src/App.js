@@ -1,6 +1,6 @@
 import React from "react";
-import {ToastProvider, useToasts} from 'react-toast-notifications'
-import {BrowserRouter, Route, Redirect, Switch} from 'react-router-dom'
+import {ToastProvider} from 'react-toast-notifications'
+import {BrowserRouter, Route, Switch} from 'react-router-dom'
 import Landing from "./Landing";
 import UserLogin from "./components/user/UserLogin";
 import PrivateRouter from "./components/routers/PrivateRouter";
@@ -14,9 +14,7 @@ import ResetPasswordRequest from "./components/passwordOperations/ResetPasswordR
 import ResetPasswordConfirmed from "./components/passwordOperations/ResetPasswordConfirmed";
 import ResetPasswordExpired from "./components/passwordOperations/ResetPasswordExpired";
 import AdminLogin from "./components/admin/AdminLogin";
-import AdminRouter from "./components/routers/AdminRouter";
 import AdminRegister from "./components/admin/AdminRegister";
-import axios from 'axios'
 import Conversation from "./components/Conversation/Coversation";
 import ConversationTab from "./components/Conversation/CoversationsTab";
 const App = () => {
