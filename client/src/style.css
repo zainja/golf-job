@@ -1,0 +1,25 @@
+.send-text{
+    display: flex;
+    height: 2rem;
+    flex-direction: row;
+    align-items: stretch;
+}
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    height: calc(100vh - 7rem);
+}
+
+.message-user {
+    align-self: flex-end;
+    max-width: 50%;
+}
+
+.message-otheruser {
+    align-self: flex-start;
+    max-width: 50%;
+}
+.contact:hover{
+    background: lightgray;
+}

@@ -1,16 +1,19 @@
-import React, {useState} from "react"
+import React, {useEffect, useState} from "react"
 import axios from 'axios'
 import {withRouter} from 'react-router-dom'
 import {useInterval} from '../../hooks/useInterval'
 import MessageBubble from "./MessageBubble";
-import Send from "../../resources/Send.svg"
+
 const Conversation = (props) => {
+    let messagesDiv = document.getElementById("messages");
     const [receivedMessages, setReceivedMessages] = useState([])
     const [message, setMessage] = useState("")
+    const [messageLength, setMessageLength] = useState(0)
+    const [scroll, setScroll] = useState(false)
     const send = () => {
         if (message !== "") {
             axios.post('/messages/sendMessage', {
-                receiver: props.match.params.email,
+                receiver: props.email,
                 message: message
             }, {
                 headers: {
@@ -19,51 +22,42 @@ const Conversation = (props) => {
             }).then(res => res.data)
                 .catch(err => console.log(err.response.data))
         }
+        messagesArray.push(<MessageBubble key={122}
+                                          sender={localStorage.getItem("email")}
+                                          text={message}
+                                          isUser={true}
+                                          time={Date.now()}
+        />)
+        messagesDiv.scrollTop = messagesDiv.scrollHeight
+        setMessage("")
     }
     useInterval(() => {
-        axios.post('/messages/getMessages/', {user: props.match.params.email}, {
+        axios.post('/messages/getMessages/', {user: props.email}, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('access-token')}`
             }
         }).then(r => r.data)
-            .then(data => setReceivedMessages(data.messages))
+            .then(data => {
+                setReceivedMessages(data.messages)
+            })
             .catch(err => console.log(err.response.data))
-    }, 1000)
-    const messagesArray = receivedMessages.map(text => <MessageBubble key={text.id}
-                                                                      sender={text.sender}
-                                                                      text={text.message}
-                                                                      isUser={localStorage.getItem("email") === text.sender}
-                                                                      time={text.time}/>)
+    }, 100)
+    let messagesArray = receivedMessages.map(text => <MessageBubble key={text.id}
+                                                                    sender={text.sender}
+                                                                    text={text.message}
+                                                                    isUser={localStorage.getItem("email") === text.sender}
+                                                                    time={text.time}/>)
     return (
-        <div className="container-fluid">
-            <div className="row mb-2" style={{height: "2rem"}}>
-                <div className="container-fluid bg-dark">
-                    <div className="container text-center">
-                        <h3 className="text-white">Conversation</h3>
-                    </div>
-                </div>
+        <div>
+            <div id="messages" className="chat-container mt-1 ml-1">
+                {messagesArray}
             </div>
-            <div className="row">
-                <div className="container overflow-auto"
-                     style={{maxHeight: `calc(100vh - 6rem)`, "overflow-y": "hidden"}}>
-                    {messagesArray}
-                </div>
-            </div>
-            <div className="row mt-2">
-                <div className="container">
-                    <div className="row">
-                        <div className="col-10">
-                            <div className="form-group">
-                                <input className="w-100" onChange={event => setMessage(event.target.value)}
-                                       maxLength={250}
-                                       required/>
-                            </div>
-                        </div>
-                        <div className="col-2" style={{height: "2rem"}}>
-                            <button className="btn btn-primary" onClick={send}>Send</button>
-                        </div>
-                    </div>
-                </div>
+            <div className="send-text">
+                <input type="text"
+                       className="flex-grow-1 mr-1"
+                       value={message}
+                       onChange={event => (setMessage(event.target.value))}/>
+                <button className="btn bg-primary text-white" onClick={send}>Send</button>
             </div>
         </div>
     )
