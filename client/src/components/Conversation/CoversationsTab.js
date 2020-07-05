@@ -31,11 +31,9 @@ const ConversationTab = (props) => {
             .then(data => {
                 setContacts(data.users)
                 setEmail(data.users[0].email)
-                setName(data.users[0].first_name + data.users[0].last_name)
+                setName(data.users[0].first_name + " " + data.users[0].last_name)
             }).catch(err => console.log(err))
-        return
     }, [])
-
     const contactsArray = contacts.map(contact => {
         let className = "thumbnail"
         if (contacts.indexOf(contact) === 0){
@@ -48,6 +46,15 @@ const ConversationTab = (props) => {
                 contact={contact}
                 click={onClick}/>
         </li>
+        )
+    })
+
+    const contactsSmallScreen = contacts.map(contact => {
+        return(
+            <a className="dropdown-item" key={contact.email}
+           onClick={e => onClick(contact.email, contact.first_name, contact.last_name)}>
+                {contact.first_name}
+            </a>
         )
     })
     const goBack = () => {
@@ -65,7 +72,17 @@ const ConversationTab = (props) => {
                 <h3>
                     {name}
                 </h3>
-                <button className="btn bg-primary text-white">contacts</button>
+                <div className="btn-group">
+                    <button type="button"
+                            className="btn btn-info dropdown-toggle"
+                            data-toggle="dropdown"
+                            aria-haspopup="true"
+                            aria-expanded="false">Contacts</button>
+                    <div className="dropdown-menu">
+                        {contactsSmallScreen}
+                    </div>
+
+                </div>
             </div>
 
 
