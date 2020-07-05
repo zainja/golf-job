@@ -8,7 +8,6 @@ const Conversation = (props) => {
     const [receivedMessages, setReceivedMessages] = useState([])
     const [message, setMessage] = useState("")
     const messagesEndRef = useRef(null)
-    const[length, setLength] = useState(0)
     const send = () => {
         if (message !== "") {
             axios.post('/messages/sendMessage', {
@@ -43,7 +42,6 @@ const Conversation = (props) => {
     }, 100)
 
     const scrollToBottom = () => {
-
         messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
     useEffect(scrollToBottom, [receivedMessages]);
@@ -56,6 +54,9 @@ const Conversation = (props) => {
 
     return (
         <div>
+            {/*<div className="d-flex">*/}
+            {/*    <h2>hello</h2>*/}
+            {/*</div>*/}
             <div id="messages" className="chat-container mt-1 ml-1">
                 {messagesArray}
                 <div ref={messagesEndRef}/>
