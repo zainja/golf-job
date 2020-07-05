@@ -5,9 +5,10 @@ import ConversationCard from "../Cards/CoversationCard";
 import UserNavBar from "../navigation/NavigationBar";
 import Conversation from "./Coversation";
 import $ from "jquery"
+import {useToasts} from "react-toast-notifications";
 
 const ConversationTab = (props) => {
-
+    const {addToast} = useToasts()
     const [contacts, setContacts] = useState([])
     const [email, setEmail] = useState("")
     const [name, setName] = useState("")
@@ -32,27 +33,27 @@ const ConversationTab = (props) => {
                 setContacts(data.users)
                 setEmail(data.users[0].email)
                 setName(data.users[0].first_name + " " + data.users[0].last_name)
-            }).catch(err => console.log(err))
+            }).catch(err => addToast("Couldn't fetch data", {appearance: 'error', autoDismiss: true}))
     }, [])
     const contactsArray = contacts.map(contact => {
         let className = "thumbnail"
-        if (contacts.indexOf(contact) === 0){
+        if (contacts.indexOf(contact) === 0) {
             className += " highlight"
         }
-        return(
+        return (
             <li key={contact.email} className={className}>
-            <ConversationCard
-                id={contact.email}
-                contact={contact}
-                click={onClick}/>
-        </li>
+                <ConversationCard
+                    id={contact.email}
+                    contact={contact}
+                    click={onClick}/>
+            </li>
         )
     })
 
     const contactsSmallScreen = contacts.map(contact => {
-        return(
+        return (
             <a className="dropdown-item" key={contact.email}
-           onClick={e => onClick(contact.email, contact.first_name, contact.last_name)}>
+               onClick={e => onClick(contact.email, contact.first_name, contact.last_name)}>
                 {contact.first_name}
             </a>
         )
@@ -77,7 +78,8 @@ const ConversationTab = (props) => {
                             className="btn btn-info dropdown-toggle"
                             data-toggle="dropdown"
                             aria-haspopup="true"
-                            aria-expanded="false">Contacts</button>
+                            aria-expanded="false">Contacts
+                    </button>
                     <div className="dropdown-menu">
                         {contactsSmallScreen}
                     </div>

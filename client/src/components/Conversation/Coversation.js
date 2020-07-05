@@ -3,8 +3,10 @@ import axios from 'axios'
 import {withRouter} from 'react-router-dom'
 import {useInterval} from '../../hooks/useInterval'
 import MessageBubble from "./MessageBubble";
+import {useToasts} from "react-toast-notifications";
 
 const Conversation = (props) => {
+    const {addToast} = useToasts()
     const [receivedMessages, setReceivedMessages] = useState([])
     const [message, setMessage] = useState("")
     const messagesEndRef = useRef(null)
@@ -18,7 +20,9 @@ const Conversation = (props) => {
                     Authorization: `Bearer ${localStorage.getItem('access-token')}`
                 }
             }).then(res => res.data)
-                .catch(err => console.log(err.response.data))
+                .catch(err => {
+                    addToast("failed to send message", {appearance: 'success', autoDismiss: true})
+                })
         }
         messagesArray.push(<MessageBubble key={122}
                                           sender={localStorage.getItem("email")}
@@ -42,7 +46,7 @@ const Conversation = (props) => {
     }, 100)
 
     const scrollToBottom = () => {
-        messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+        messagesEndRef.current.scrollIntoView({behavior: "smooth"});
     }
     useEffect(scrollToBottom, [receivedMessages]);
 
