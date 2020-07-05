@@ -1,18 +1,13 @@
 import React, {useEffect, useState} from "react";
-import {Link} from "react-router-dom";
 import axios from "axios"
-import $ from 'jquery'
 
 const ConversationCard = (props) => {
-    // $(".card").hover(()=> $(this).css( $(this).css("background-color", "yellow")),() => {
-    //     $(this).css("background-color", "white")
-    // })
     const {first_name, last_name, email} = props.contact
     const [lastMessage, setLastMessage] = useState("")
     const [time, setTime] = useState(new Date())
     const [isUser, setIsUser] = useState(false)
     const setEmail = () => {
-        props.click(email)
+        props.click(email, first_name, last_name)
     }
     useEffect(() => {
         axios.post("/messages/lastMessage", {otherUser: email}, {
