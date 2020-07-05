@@ -1,15 +1,36 @@
-.send-text{
+.send-text {
+    /*padding-left: 0.5rem;*/
+    /*padding-right: 0.5rem;*/
     display: flex;
     height: 2rem;
     flex-direction: row;
     align-items: stretch;
 }
+
 .chat-container {
+    border-style: solid;
+    border-color: lightgray;
+    border-width: 0.01em;
     display: flex;
     flex-direction: column;
     overflow-y: scroll;
     height: calc(100vh - 7rem);
+    padding: 1rem;
 
+}
+
+.highlight div {
+    background-color: lightgray;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+li {
+    margin: 0;
 }
 
 .message-user {
@@ -21,6 +42,14 @@
     align-self: flex-start;
     max-width: 50%;
 }
-.contact:hover{
+
+.contact:hover {
     background: lightgray;
+}
+
+.chat-upper-bar {
+    padding: 1em;
+    height: 54px;
+    align-items: center;
+    justify-content: space-between;
 }
