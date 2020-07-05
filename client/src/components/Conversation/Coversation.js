@@ -1,15 +1,14 @@
-import React, {useEffect, useState} from "react"
+import React, {useEffect, useState, useRef} from "react"
 import axios from 'axios'
 import {withRouter} from 'react-router-dom'
 import {useInterval} from '../../hooks/useInterval'
 import MessageBubble from "./MessageBubble";
 
 const Conversation = (props) => {
-    let messagesDiv = document.getElementById("messages");
     const [receivedMessages, setReceivedMessages] = useState([])
     const [message, setMessage] = useState("")
-    const [messageLength, setMessageLength] = useState(0)
-    const [scroll, setScroll] = useState(false)
+    const messagesEndRef = useRef(null)
+    const[length, setLength] = useState(0)
     const send = () => {
         if (message !== "") {
             axios.post('/messages/sendMessage', {
@@ -26,9 +25,8 @@ const Conversation = (props) => {
                                           sender={localStorage.getItem("email")}
                                           text={message}
                                           isUser={true}
-                                          time={Date.now()}
-        />)
-        messagesDiv.scrollTop = messagesDiv.scrollHeight
+                                          time={Date.now()}/>)
+
         setMessage("")
     }
     useInterval(() => {
@@ -38,19 +36,29 @@ const Conversation = (props) => {
             }
         }).then(r => r.data)
             .then(data => {
-                setReceivedMessages(data.messages)
+                if (data.messages.length !== receivedMessages.length)
+                    setReceivedMessages(data.messages)
             })
             .catch(err => console.log(err.response.data))
     }, 100)
+
+    const scrollToBottom = () => {
+
+        messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+    useEffect(scrollToBottom, [receivedMessages]);
+
     let messagesArray = receivedMessages.map(text => <MessageBubble key={text.id}
                                                                     sender={text.sender}
                                                                     text={text.message}
                                                                     isUser={localStorage.getItem("email") === text.sender}
                                                                     time={text.time}/>)
+
     return (
         <div>
             <div id="messages" className="chat-container mt-1 ml-1">
                 {messagesArray}
+                <div ref={messagesEndRef}/>
             </div>
             <div className="send-text">
                 <input type="text"
