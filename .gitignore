@@ -7,3 +7,5 @@ test.http
 node_modules/
 package-lock.json
 client/src/config.js
+server/publicfiles/**
+!server/publicfiles/.gitkeep
