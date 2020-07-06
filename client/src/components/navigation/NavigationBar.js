@@ -13,7 +13,7 @@ const NavigationBar = (props) => {
         title = "Golf App"
     }
     return (
-            <nav className="navbar navbar-expand-lg navbar-light bg-light">
+            <nav className="navbar navbar-expand-md navbar-light bg-light">
                 <a className="navbar-brand">{title}</a>
                 <button className="navbar-toggler" type="button" data-toggle="collapse"
                         data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
