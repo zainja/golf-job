@@ -1,12 +1,12 @@
 const connection = require('../connection')
 
 
-module.exports.publishPost = (trainer, customer, title, body, videoPath) => {
+module.exports.publishPost = (trainer, client, title, body, videoPath) => {
     return new Promise((resolve, reject) => {
         connection.query(`INSERT INTO notes
-                              (trainer, customer, title, body, video_path)
+                              (trainer, client, title, body, video_path)
                           VALUES (?, ?, ?, ?, ?)`,
-            [trainer, customer, title, body, videoPath], (err, result) => {
+            [trainer, client, title, body, videoPath], (err, result) => {
                 if (err) reject(err)
                 resolve(result)
             })
@@ -29,7 +29,7 @@ module.exports.editPost = (title, body, id) => {
 
 module.exports.getPostsForUser = (user) => {
     return new Promise((resolve, reject) => {
-        connection.query(`SELECT * FROM notes WHERE customer = ?`, [user], (err, result) => {
+        connection.query(`SELECT * FROM notes WHERE client = ?`, [user], (err, result) => {
             if (err) reject(err)
             resolve(result)
         })
