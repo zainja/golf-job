@@ -1,7 +1,6 @@
 const multer = require('multer')
 const express = require('express')
 const router = express.Router()
-const fs = require('fs')
 const path = require('path')
 const {getPostsForUser} = require("../query/notesQuery");
 const {getPostsFromAdmin} = require("../query/notesQuery");
@@ -13,7 +12,9 @@ const storage = multer.diskStorage({
         cb(null, path.resolve("publicfiles"))
     },
     filename: function (req, file, cb) {
-        cb(null, file.originalname)
+        const fileName = file.originalname.replace(/ /g, "-")
+        console.log(fileName)
+        cb(null, fileName)
     }
 })
 
@@ -27,16 +28,16 @@ router.post('/upload', authToken, (req, res) => {
             } else if (err) {
                 return res.status(500).send(err)
             } else {
-                const {title, notes, targetClient} = req.body
-                const filePath =
-                    path.join(path.resolve("publicfiles"), req.file.originalname)
-                publishPost(req.email, targetClient, title, notes, filePath)
-                    .then(response => res.send(req.file))
+                const {title, note, targetClient} = req.body
+                const fileName = req.file.originalname.replace(/ /g, "-")
+                const filePath = path.join(path.resolve("publicfiles"), fileName)
+                publishPost(req.email, targetClient, title, note, filePath).then(response => res.send(req.file))
                     .catch(err => res.status(500).send({msgs: "error happened"}))
             }
         })
+    } else {
+        res.status(403).send({msgs: "Access Denied"})
     }
-    res.status(403).send({msgs: "Access Denied"})
 })
 
 router.get('/admin', authToken, async (req, res) => {
