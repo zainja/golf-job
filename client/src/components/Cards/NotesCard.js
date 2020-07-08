@@ -5,11 +5,15 @@ const NotesCard = (props) => {
         year: 'numeric', month: 'numeric', day: 'numeric',
         hour: 'numeric', minute: 'numeric'
     }
+
+    const onClick = () => {
+        props.onClick(props.notes)
+    }
     const {title, body, published} = props.notes
     const date = new Date(published)
     const formattedDate = new Intl.DateTimeFormat('en-GB', options).format(date)
     return (
-        <div className="card contact">
+        <div className="card contact" onClick={onClick}>
             <div className="card-body">
                 <h5 className="card-title">
                     {title}

@@ -20,6 +20,7 @@ import ConversationTab from "./components/Conversation/CoversationsTab";
 import AdminRouter from "./components/routers/AdminRouter";
 import NotesForm from "./components/Notes/NotesForm";
 import AllNotes from "./components/Notes/AllNotes";
+import Note from "./components/Notes/Note";
 const App = () => {
     return (
         <ToastProvider>
@@ -32,6 +33,7 @@ const App = () => {
                     <PrivateRouter exact path="/conversations" component={ConversationTab}/>
                     <AdminRouter exact path="/notes-form" component={NotesForm}/>
                     <PrivateRouter exact path="/notes" component={AllNotes}/>
+                    <PrivateRouter exact path="/note/:id" component={Note}/>
                     <RegisterRouter exact path="/confirm/:id" component={ConfirmEmail}/>
                     <ResetPasswordRouter exact path="/reset/:id" component={ResetPasswordConfirmed}/>
                     <Route exact path="/forgot-password" component={ResetPasswordRequest}/>

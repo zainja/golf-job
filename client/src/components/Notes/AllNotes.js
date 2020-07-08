@@ -21,8 +21,8 @@ const AllNotes = (props) => {
             .then(data => setNotesList(data.posts))
             .catch(err => addToast("Fetch error", {appearance: 'error'}))
     }
-    const goToNote = () => {
-
+    const goToNote = (noteInfo) => {
+        props.history.push(`/note/:${noteInfo.id}`, {noteInfo: noteInfo})
     }
     console.log(notesList)
     const NotesCardList = notesList.map(note => {

@@ -8,7 +8,7 @@ const AdminRouter = ({component: Component, ...rest}) => {
             {...rest}
             render={props => {
                 const admin = localStorage.getItem('is-admin')
-                if (admin === true) {
+                if (admin === "true") {
                     console.log(admin)
                     return <Component/>
                 } else {
