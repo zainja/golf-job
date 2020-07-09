@@ -58,9 +58,6 @@ const Conversation = (props) => {
 
     return (
         <div>
-            {/*<div className="d-flex">*/}
-            {/*    <h2>hello</h2>*/}
-            {/*</div>*/}
             <div id="messages" className="chat-container mt-1 ml-1">
                 {messagesArray}
                 <div ref={messagesEndRef}/>
