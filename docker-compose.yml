@@ -1,0 +1,32 @@
+version: "3.7"
+services:
+  db:
+    build: ./db
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_PWD}
+    networks:
+      - db-net
+  api:
+    image: "node:alpine"
+    working_dir: /home/node/app
+    volumes:
+      - ./server:/home/node/app:ro
+    networks:
+      - db-net
+    ports:
+      - 5000:5000
+    environment: 
+      - host=db
+      - user=root
+      - password=${MYSQL_PWD}
+      - database=golf
+      - REGISTER_TOKEN_SECRET=${REGISTER_TOKEN_SECRET}
+      - RESET_PASSWORD_TOKEN_SECRET=${RESET_PASSWORD_TOKEN_SECRET}
+      - ACCESS_TOKEN_SECRET=${ACCESS_TOKEN_SECRET}
+      - email=${email}
+      - acc_password=${acc_password}
+    command: "npm run dev"
+networks:
+  db-net:
