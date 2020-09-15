@@ -18,3 +18,10 @@ Build using React and Bootstrap for styling.
 ### Chatting
 
 <img src="screenshots/chat-with-user.jpg" alt="chat"/>
+
+### Notes for client
+
+<img src="screenshots/notes-for-client.jpg" alt="notes list"/>
+
+### Individual Note
+<img src="screenshots/note-with-video.jpg" alt="single note" />
