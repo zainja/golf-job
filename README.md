@@ -10,4 +10,11 @@ The backend was implemented using NodeJs and express library to send HTTP reques
 ## Front end
 Build using React and Bootstrap for styling.
 
-## ScreenShots
+## Screenshots
+### Login Page
+
+<img src="screenshots/website1.jpeg" alt="login"/>
+
+### Chatting
+
+<img src="screenshots/chat-with-user.jpg" alt="chat"/>
